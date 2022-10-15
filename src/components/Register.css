@@ -1,0 +1,12 @@
+.invalid-creds {
+    color: #d50000;
+    font-size: 0.75rem;
+    font-weight: 100px;
+}
+
+.register-form {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+/* style={{ padding: '100px', marginLeft: '50px', marginRight: '50px' }} */
