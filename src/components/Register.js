@@ -1,45 +1,49 @@
-import './App.css';
-import './Register.css';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { db } from '../firebaseConfig';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
+import './MainPage.css';
+import './Register.css';
+
 export const Register = () => {
     const [cookies, setCookie] = useCookies(['email']);
+    // Email/password and error message if available
     const [{ password, errPass }, setStatePass] = useState({ password: '', errPass: 'valid' });
     const [{ email, errEmail }, setStateEmail] = useState({ email: '', errEmail: 'valid' });
-    const [emailInput, emailInputState] = useState(false);
-    const [passInput, passInputState] = useState(false);
+    // Wether the user is focused on an input box or not
+    const [emailUnfocus, emailUnfocusState] = useState(false);
+    const [passUnfocus, passUnfocusState] = useState(false);
+    // Display errors after submitting
     const [submitError, submitState] = useState('valid');
+    const navigate = useNavigate();
 
     const handleEmail = async (event) => {
         const emailRegex = /^[A-z]{4}[0-9]{4}@(mylaurier|uwaterloo)\.ca$/;
-        const { style, value: email } = event.target;
+        const { value: email } = event.target;
         let errEmail = 'valid';
 
-        // Reset border color
+        // Test if email is valid
         if (!emailRegex.test(email)) {
             errEmail = 'Invalid email';
         }
 
-        // reset border color with success or no input
-        if (errEmail === 'valid') {
-            style.border = '1px solid green';
-        } else if (!email) {
-            style.border = '1px solid gray';
-        } else {
-            // Invalid email? RED BOX!!!1
-            style.border = '1px solid red';
+        // valid email? GREEN BOX!
+        if (errEmail === 'valid') { // Valid? GREEENNN
+            document.getElementById("email").style.border = '2px solid green';
+        } else if (!email) { // No input? no color
+            document.getElementById("email").style.border = '2px solid gray';
+        } else { // bad input = bad color
+            document.getElementById("email").style.border = '2px solid red';
         }
 
-        emailInputState(false);
+        emailUnfocusState(false); // State that user is editing the box
         setStateEmail({ email, errEmail });
     };
 
     const handlePassword = (event) => {
-        const { style, value: password } = event.target;
+        const { value: password } = event.target;
         let errPass = 'valid';
 
         // Check password
@@ -55,15 +59,14 @@ export const Register = () => {
 
         // If its valid, or they erased the password REMOVE RED box
         if (errPass === 'valid') {
-            style.border = '1px solid green';
+            document.getElementById("password").style.border = '2px solid green';
         } else if (!password) {
-            style.border = '1px solid gray';
+            document.getElementById("password").style.border = '2px solid gray';
         } else {
-            // Invalid email? RED BOX!!!1
-            style.border = '1px solid red';
+            document.getElementById("password").style.border = '2px solid red';
         }
 
-        passInputState(false);
+        passUnfocusState(false);
         setStatePass({ password, errPass });
     };
 
@@ -100,7 +103,7 @@ export const Register = () => {
     // Create a lil red thingie that tells them what they did wrong
     const credError = (message) => {
         return (
-            <div className="invalid-creds" hidden={message === 'valid'}>
+            <div className="invalid-creds" style={{ marginTop: '3px' }} hidden={message === 'valid'}>
                 {message}
             </div>
         );
@@ -108,25 +111,36 @@ export const Register = () => {
 
     // Webpage view
     return (
-        <div className="App-header">
-            <form className='register-form' onSubmit={handleSubmit}>
-                {cookies.email && <Navigate replace to="/loggedin" />}
+        <div className="header">
+            <div className="register">
+                {cookies.email && navigate('/loggedin')}
+                <form className='register-form' onSubmit={handleSubmit}>
+                    <div className="input-boxes">
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <label> Email: </label>
+                            <div className="input-box-holder" id="email">
+                                <input className="input-box" value={email} onChange={handleEmail} onBlur={() => emailUnfocusState(true)} />
+                            </div>
 
-                <p> Email: </p>
-                <input value={email} onChange={handleEmail} onBlur={() => emailInputState(true)} />
+                            {/* if they enter a email and exit the input box, show possible errors */}
+                            {email && emailUnfocus && credError(errEmail)}
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <label> Password: </label>
+                            <div className="input-box-holder" id="password">
+                                <input className="input-box" autoComplete="new-password" type='password' value={password} onChange={handlePassword} onBlur={() => passUnfocusState(true)} />
+                            </div>
 
-                {/* if they enter a email and exit the input box, show possible errors */}
-                {email && emailInput && credError(errEmail)}
+                            <label> {password && passUnfocus && credError(errPass)} </label>
+                        </div>
+                    </div>
+                    <div className="submit-button-box">
+                        <p className="submit-button"> <button type="submit" disabled={!(password && email)}>Create</button> </p>
+                    </div>
 
-                <p> Password: </p>
-                <input autoComplete="new-password" type='password' value={password} onChange={handlePassword} onBlur={() => passInputState(true)} />
-
-                {password && passInput && credError(errPass)}
-
-                <p> <button type="submit" disabled={!(password && email)}>Create</button> </p>
-
-                {credError(submitError)}
-            </form>
+                    {credError(submitError)}
+                </form>
+            </div>
         </div>
     );
 };

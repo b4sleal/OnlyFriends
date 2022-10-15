@@ -10,7 +10,7 @@ export const MainPage = () => {
             <header className="App-header">
                 <div className="navbar">
                     {cookies.email && <Navigate replace to="/loggedin" />}
-                    <div className="login-button"><a href="/login">Login</a></div>
+                    <div className="login-button"><a href="/logInPage">Login</a></div>
                     <div className="register-button"><a href="/register">Register</a></div>
                 </div>
             </header>

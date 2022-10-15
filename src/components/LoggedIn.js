@@ -1,12 +1,13 @@
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
 export const LoggedIn = () => {
     const [cookies] = useCookies(['email']);
+    const navigate = useNavigate();
 
     return (
         <div className="App" >
-            {!cookies.email && <Navigate replace to="/" />}
+            {!cookies.email && navigate('/home')}
             <header className="App-header">
                 <p>
                     YOU are logged in
