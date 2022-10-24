@@ -47,7 +47,7 @@ export const MainPage = () => {
                                     <h1 className="title-header">A new way to<br />make connections<br />on campus</h1>
                                     <p className="pg">A safe place for students<br />to date and make friends<br /></p>
                                     <div className="button-container">
-                                        <button className="default-btn create-acc-btn" type="submit" onClick={() => navigate("/register")}>Create Account</button>
+                                        <button className="default-btn create-acc-btn" type="submit" onClick={() => navigate("/createprofile")}>Create Account</button>
                                         <button className="default-btn login-btn" type="submit" onClick={() => navigate("/loginpage")}>Login</button>
                                     </div>
                                 </div>

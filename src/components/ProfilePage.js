@@ -9,7 +9,6 @@ export const MainPage = () => {
     const [cookies] = useCookies(['email']);
     const navigate = useNavigate();
 
-    // homepage is simple as of now (testing design and color themes)
     return (
         <div>
             {cookies.email && navigate('/homepage')}

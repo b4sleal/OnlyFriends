@@ -1,0 +1,254 @@
+html,
+body {
+    background: linear-gradient(89deg, #c5b3f9, #ffcbaf);
+}
+
+.cp-page-card {
+    padding-top: 30px;
+    max-width: 640px;
+    margin-left: 30px;
+    margin-right: 30px;
+    background: white;
+    border-radius: 15px;
+    margin-bottom: 26px;
+    padding-left: 0px;
+    margin-top: 30px;
+}
+
+@media screen and (min-width: 700px) {
+    .cp-page-card {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.cp-main-container {
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-bottom: 30px;
+}
+
+.cp-navbar {
+    margin-left: 0px;
+    margin-bottom: 60px;
+    max-width: 1320px;
+}
+
+.cp-navbar-brand {
+    margin-right: 0px;
+    padding-left: 0px;
+    margin-left: -11px;
+}
+
+.cp-logo-container {
+    display: flex;
+}
+
+.cp-logo-name {
+    color: #5a4847;
+    font-size: min(20px, calc(50% + 1vw));
+}
+
+.cp-navbar-toggler {
+    padding-left: 8px;
+}
+
+.cp-nav-links {
+    justify-content: space-evenly;
+    margin: auto;
+    width: 80%;
+}
+
+.cp-nav-link {
+    color: #5a4847 !important;
+    font-size: min(16px, calc(50% + 0.8vw));
+    border-radius: 6px;
+}
+
+.cp-ctn-1 {
+    margin-top: 0px;
+    width: auto !important;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+    margin-left: 0px;
+    margin-right: 0px;
+    /*margin-bottom: 300px;*/
+    max-width: 1400px;
+}
+
+.cp-row {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    align-items: center;
+    width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .cp-row-reverse {
+        flex-direction: column-reverse;
+    }
+}
+
+.cp-col {
+    padding-left: 0px;
+    padding-right: 0px;
+    flex: 1 0 0%;
+    width: 100%;
+}
+
+.cp-col-right {
+    text-align: right;
+}
+
+.cp-title-header {
+    color: #5a4847;
+    margin-bottom: 35px;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.cp-pg {
+    color: #5a4847;
+    margin-bottom: 35px;
+    font-size: min(16px, calc(50% + 0.8vw));
+}
+
+.cp-button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cp-default-btn {
+    border: 2px solid #8350b6;
+    border-radius: 40px;
+    margin-left: 0px;
+    margin-right: 18px;
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-weight: bold;
+    transition: all 0.3s ease 0s;
+    font-size: min(16px, calc(50% + 0.8vw));
+}
+
+.cp-default-btn:hover {
+    box-shadow: -8px -8px 15px 5px #c7b4f7;
+    transform: translate(3px, 3px);
+}
+
+.cp-create-acc-btn {
+    background: #8350b6;
+    color: white;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.cp-login-btn {
+    background: white;
+    color: #8350b6;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.cp-group {
+    position: relative;
+}
+
+.cp-input-box {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #757575;
+}
+
+.cp-input-box:focus {
+    outline: none !important;
+}
+
+.cp-input-label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.3s ease all;
+}
+
+.cp-input-box:focus~.cp-input-label,
+.cp-input-box:valid~.cp-input-label {
+    top: -20px;
+    font-size: 14px;
+    color: #8350b6;
+}
+
+.cp-error-bar {
+    position: absolute;
+    display: block;
+    width: 300px;
+    background: crimson;
+    height: 2px;
+    bottom: 1px
+}
+
+.cp-bar {
+    position: relative;
+    display: block;
+    width: 300px;
+}
+
+.cp-bar:before,
+.cp-bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #8350b6;
+    transition: 0.3s ease all;
+}
+
+.cp-bar:before {
+    left: 50%;
+}
+
+.cp-bar:after {
+    right: 50%;
+}
+
+.cp-input-box:focus~.cp-bar:before,
+.cp-input-box:focus~.cp-bar:after {
+    width: 50%;
+}
+
+@media screen and (max-width:432px) {
+    .cp-input-box {
+        width: 100%
+    }
+
+    .cp-bar {
+        width: 100%
+    }
+
+    .cp-error-bar {
+        width: 100%
+    }
+}
+
+.cp-error-label {
+    color: crimson;
+    font-size: 12px;
+    margin-top: 2px;
+    margin-bottom: 45px;
+    padding-left: 5px
+}

@@ -135,6 +135,11 @@
     transform: translate(3px, 3px);
 }
 
+.default-btn:active {
+    box-shadow: none;
+    transform: none;
+}
+
 .create-acc-btn {
     background: #8350b6;
     color: white;
