@@ -11,6 +11,7 @@ export const Register = () => {
     const [cookies, setCookie] = useCookies(['email']);
     // Email/password and error message if available
     const [{ password, errPass }, setStatePass] = useState({ password: '', errPass: 'valid' });
+    const [{ repeatpassword, errPassw }, setStatePassw] = useState({ repeatpassword: '', errPass: 'valid' });
     const [{ email, errEmail }, setStateEmail] = useState({ email: '', errEmail: 'valid' });
     // Wether the user is focused on an input box or not
     const [emailUnfocus, emailUnfocusState] = useState(false);
@@ -20,7 +21,7 @@ export const Register = () => {
     const navigate = useNavigate();
 
     const handleEmail = async (event) => {
-        const emailRegex = /^[A-z]{4}[0-9]{4}@(mylaurier|uwaterloo)\.ca$/;
+        const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(mylaurier|uwaterloo|utoronto|queensu)\.ca$/;
         const { value: email } = event.target;
         let errEmail = 'valid';
 
@@ -70,10 +71,32 @@ export const Register = () => {
         setStatePass({ password, errPass });
     };
 
+    const handlerepeatPassword = (event) => {
+        const { value: repeatpassword } = event.target;
+        let errPass = 'valid';
+
+        // Check password
+        if (password != repeatpassword) {
+            errPassw = 'Passwords do not match, please try again!';
+        }
+
+        // If its valid, or they erased the password REMOVE RED box
+        if (errPassw === 'valid') {
+            document.getElementById("repeatpassword").style.border = '2px solid green';
+        } else if (!repeatpassword) {
+            document.getElementById("repeatpassword").style.border = '2px solid gray';
+        } else {
+            document.getElementById("repeatpassword").style.border = '2px solid red';
+        }
+
+        passUnfocusState(false);
+        setStatePass({ password, errPass });
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (errPass === 'valid' && errEmail === 'valid') {
+        if (errPass === 'valid' && errEmail === 'valid' && errPassw === "valid") {
             const col = doc(db, 'Logins', email);
             const document = await getDoc(col);
 
@@ -111,8 +134,8 @@ export const Register = () => {
 
     // Webpage view
     return (
-        <div className="header">
-            <div className="register">
+        <div className="register-header">
+            <div className="register-container">
                 {cookies.email && navigate('/loggedin')}
                 <form className='register-form' onSubmit={handleSubmit}>
                     <div className="input-boxes">
@@ -130,7 +153,10 @@ export const Register = () => {
                             <div className="input-box-holder" id="password">
                                 <input className="input-box" autoComplete="new-password" type='password' value={password} onChange={handlePassword} onBlur={() => passUnfocusState(true)} />
                             </div>
-
+                            <label> Confirm Password: </label>
+                            <div className="input-box-holder" id="repeatpassword">
+                                <input className="input-box" autoComplete="new-password" type='repeatpassword' value={repeatpassword} onChange={handlerepeatPassword} onBlur={() => passUnfocusState(true)} />
+                            </div>
                             <label> {password && passUnfocus && credError(errPass)} </label>
                         </div>
                     </div>
