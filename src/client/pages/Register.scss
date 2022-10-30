@@ -1,0 +1,205 @@
+/** 
+ * page-card is prefixed'cp' because css is GLOBAL in react
+ * Having name repeats in different CSS files causes them to overlap
+ * (cp stands for create profile)
+ * this way we dont have to have every single css element named differently everywhere
+ */
+
+
+/** 
+ * Pages main elements 
+ */
+.cp-page-card {
+    max-width: 640px;
+    padding-top: 30px;
+    padding-left: 0px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 15%;
+    margin-bottom: 26px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: #7d8185 0px 0px 10px 1px;
+
+    .col {
+        flex: 1 0 0%;
+        width: 100%;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .default-btn {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .default-btn:hover {
+        box-shadow: -8px -8px 15px 5px #c7b4f7;
+        transform: translate(3px, 3px);
+    }
+
+    /*********/
+
+    /** 
+     * Buttons and input 
+     */
+    .btn-1,
+    .btn-select {
+        background: white;
+        color: #8350b6;
+    }
+
+    .btn-2,
+    .btn-selected {
+        background: #8350b6;
+        color: white;
+    }
+
+    .btn-select,
+    .btn-selected {
+        border-radius: 100px
+    }
+
+    .btn-select:hover,
+    .btn-selected:hover {
+        box-shadow: none;
+        transform: none
+    }
+
+    .input-group {
+        position: relative;
+    }
+
+    .input-box {
+        font-size: 18px;
+        padding: 10px 10px 10px 5px;
+        display: block;
+        width: 300px;
+        border: none;
+        border-bottom: 1px solid #757575;
+    }
+
+    .input-box:focus {
+        outline: none !important;
+    }
+
+    .input-label {
+        color: #999;
+        font-size: 18px;
+        font-weight: normal;
+        position: absolute;
+        pointer-events: none;
+        left: 5px;
+        top: 10px;
+        transition: 0.3s ease all;
+    }
+
+    .input-box:focus~.input-label,
+    .input-box:valid~.input-label {
+        top: -20px;
+        font-size: 14px;
+        color: #8350b6;
+    }
+
+    /*********/
+
+    /** 
+     * Input bar and
+     * Input error message (underneath the input/button)
+     */
+    .error-bar {
+        position: relative;
+        display: block;
+        width: 300px;
+        background: crimson;
+        height: 2px;
+        left: 1px
+    }
+
+    .bar {
+        position: relative;
+        display: block;
+        width: 300px;
+        left: 1px
+    }
+
+    .bar:before,
+    .bar:after {
+        content: '';
+        height: 2px;
+        width: 0;
+        position: absolute;
+        background: #8350b6;
+        transition: 0.3s ease all;
+    }
+
+    .bar:before {
+        left: 50%;
+    }
+
+    .bar:after {
+        right: 50%;
+    }
+
+    .input-box:focus~.bar:before,
+    .input-box:focus~.bar:after {
+        width: 50%;
+    }
+
+    @media screen and (max-width:432px) {
+        .input-box {
+            width: 100%
+        }
+
+        .bar {
+            width: 100%
+        }
+
+        .error-bar {
+            width: 100%
+        }
+    }
+
+    .error-label {
+        color: crimson;
+        font-size: 12px;
+        margin-top: 2px;
+        margin-bottom: 45px;
+        padding-left: 5px
+    }
+
+    /*********/
+
+
+    /**
+     * ¯\_(ツ)_/¯
+     * testing stuff
+     */
+    .popup-emoji {
+        position: absolute;
+        display: block;
+        top: 0;
+        width: 40px;
+        height: 40px;
+        opacity: 0;
+        animation: emoji 700ms ease-out forwards,
+    }
+
+    @keyframes emoji {
+        from {
+            transform: translate3d(0, 0, 0);
+            opacity: 1;
+        }
+    }
+}
+
+/* if the screen is too small then the card will wrap to the screen width */
+@media screen and (min-width: 700px) {
+    .cp-page-card {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

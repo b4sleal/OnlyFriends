@@ -1,13 +1,16 @@
+/**
+ * Page containers
+ */
 .page-card {
     max-width: 1800px;
+    padding-left: 0px;
     margin-left: 30px;
     margin-right: 30px;
+    margin-top: 30px;
+    margin-bottom: 26px;
     background: white;
     border-radius: 15px;
-    /*padding-bottom: 554px; */
-    margin-bottom: 26px;
-    padding-left: 0px;
-    margin-top: 30px;
+    box-shadow: #7d8185 0px 0px 10px 1px
 }
 
 @media screen and (min-width: 1800px) {
@@ -23,6 +26,12 @@
     padding-bottom: 30px;
 }
 
+/*********/
+
+
+/**
+ * Navigation bar
+ */
 .navbar {
     margin-left: 0px;
     margin-bottom: 60px;
@@ -33,15 +42,6 @@
     margin-right: 0px;
     padding-left: 0px;
     margin-left: -11px;
-}
-
-.logo-container {
-    display: flex;
-}
-
-.logo-name {
-    color: #5a4847;
-    font-size: min(20px, calc(50% + 1vw))
 }
 
 .navbar-toggler {
@@ -60,44 +60,20 @@
     border-radius: 6px;
 }
 
+/*********/
+
+
+/**
+ * Stuff inside containers
+ */
 .ctn-1 {
-    margin-top: 0px;
-    width: auto !important;
-    padding-left: 0px;
-    padding-right: 0px;
-    padding-bottom: 0px !important;
     padding-top: 0px !important;
-    margin-left: 0px;
-    margin-right: 0px;
-    /* margin-bottom: 300px; */
+    padding-bottom: 0px !important;
     max-width: 1400px;
 }
 
-.row {
-    padding-top: 0px;
-    padding-bottom: 0px;
-    margin-left: 0px;
-    margin-bottom: 0px;
-    margin-right: 0px;
-    padding-right: 0px;
-    padding-left: 0px;
-    align-items: center;
-    width: 100%;
-}
-
-@media screen and (max-width: 768px) {
-    .row-reverse {
-        flex-direction: column-reverse;
-    }
-}
-
 .col {
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
-.col-right {
-    text-align: right;
+    padding: 0px
 }
 
 .title-header {
@@ -113,6 +89,18 @@
     font-size: min(16px, calc(50% + 0.8vw))
 }
 
+.sitting-image {
+    height: min(95%, calc(95% + 0.8vh));
+    width: min(95%, calc(95% + 0.8vw));
+    max-width: 500px
+}
+
+/*********/
+
+
+/**
+ * Button stuff
+ */
 .button-container {
     display: flex;
 }
@@ -152,9 +140,4 @@
     color: #8350b6;
     padding-right: 30px;
     padding-left: 30px;
-}
-
-.sitting-image {
-    height: min(95%, calc(95% + 0.8vh));
-    width: min(95%, calc(95% + 0.8vw));
 }

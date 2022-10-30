@@ -1,5 +1,5 @@
 import Carousel, { Dots } from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
+import '@brainhubeu/react-carousel/lib/style.scss';
 import ProfileCard from './ProfileCard';
 
 export const MatchingCarousel = () => {
