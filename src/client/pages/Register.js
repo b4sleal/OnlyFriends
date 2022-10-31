@@ -1,5 +1,6 @@
 import { Navigate, redirect, useNavigate } from 'react-router-dom';
 import React, { useState, useReducer, useEffect } from 'react';
+import { getUser } from './auth/getUser';
 
 import {
     Button,
@@ -14,7 +15,8 @@ import './Register.scss';
 export const Register = () => {
     const navigate = useNavigate();
     const [page, setPage] = useState(1);
-    const [emojis, setEmojis] = useState(<></>);
+    const [emojis, setEmojis] = useState('');
+    const [loaded, loadPage] = useState();
 
     // Storage for the users info
     const reducerFunc = (state, action) => ({ ...state, ...action });
@@ -26,6 +28,8 @@ export const Register = () => {
 
     // Handle clicking next button
     const nextPage = async (event) => {
+        setEmojis('');
+
         //Verify inputs before going to the next page
         if (page == 1) {
             if (!name.value) {
@@ -61,19 +65,33 @@ export const Register = () => {
                 return setPassword({ errorMsg: passError });
             }
 
-            const data = {
-                name: name.value,
-                age: age.value,
-                gender: gender.value,
-                email: email.value,
-                password: password.value
+            // Options for the request
+            const reqOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: name.value,
+                    age: age.value,
+                    gender: gender.value,
+                    email: email.value,
+                    password: password.value
+                })
             };
 
-            localStorage.setItem('user', JSON.stringify(data));
-            navigate('/home');
+            // Make request to backend to register user
+            const data = await fetch('http://localhost:8000/api/auth/register', reqOptions)
+                .then(res => res.json());
+
+            // Error check: if the account already exists
+            if (data.invalid == 'exists') {
+                return setEmail({ errorMsg: 'Email already exists' });
+            } else {
+                // Store the token/data and navigate after they registered
+                localStorage.setItem('user', JSON.stringify(data));
+                navigate('/home');
+            }
         }
 
-        setEmojis('');
         setPage(page + 1);
     };
 
@@ -179,11 +197,24 @@ export const Register = () => {
         </CardHolder>
     );
 
+    // This will only run ONCE when page is loaded
+    // If theyre logged in, then itll redirect to the hompage
+    useEffect(() => {
+        getUser().then(status => {
+            console.log(status);
+            if (status == 'loggedin') {
+                navigate('/home');
+            } else {
+                loadPage(true);
+            }
+        });
+    }, []);
+
     const pages = [page1, page2, page3, page4];
 
     return (
         <>
-            {pages[page - 1]}
+            {loaded && pages[page - 1]}
         </>
     );
 };

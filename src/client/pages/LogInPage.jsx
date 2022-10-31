@@ -6,7 +6,9 @@ import "./LogInPage.scss";
 
 export const LogInPage = () => {
     const navigate = useNavigate();
-    const handleClick = () => { };
+    const handleClick = () => {
+        //Login request here
+    };
 
     return (
         <div className="login-container">
