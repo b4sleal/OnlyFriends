@@ -14,7 +14,7 @@ import './Register.scss';
 
 export const Register = () => {
     const navigate = useNavigate();
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(4);
     const [emojis, setEmojis] = useState('');
     const [loaded, loadPage] = useState();
 
@@ -25,6 +25,10 @@ export const Register = () => {
     const [gender, setGender] = useReducer(reducerFunc, { value: '', errorMsg: '' });
     const [email, setEmail] = useReducer(reducerFunc, { value: '', errorMsg: '' });
     const [password, setPassword] = useReducer(reducerFunc, { value: '', errorMsg: '' });
+    const [code, setCode] = useReducer(reducerFunc, { value: '', message: '' });
+
+    // Validate email address
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(mylaurier|uwaterloo|utoronto|queensu)\.ca$/;
 
     // Handle clicking next button
     const nextPage = async (event) => {
@@ -49,7 +53,6 @@ export const Register = () => {
             // const col = doc(db, 'Users', name.value);
             // const document = await getDoc(col);
         } else if (page == 4) {
-            const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(mylaurier|uwaterloo|utoronto|queensu)\.ca$/;
             const passError = handlePassword(password.value);
 
             // Verify their email and password
@@ -65,6 +68,11 @@ export const Register = () => {
                 return setPassword({ errorMsg: passError });
             }
 
+            // Check if they sent the verification code
+            if (!code.value) {
+                return setCode({ message: 'Verify your email' });
+            }
+
             // Options for the request
             const reqOptions = {
                 method: 'POST',
@@ -74,7 +82,8 @@ export const Register = () => {
                     age: age.value,
                     gender: gender.value,
                     email: email.value,
-                    password: password.value
+                    password: password.value,
+                    code: code.value
                 })
             };
 
@@ -82,9 +91,16 @@ export const Register = () => {
             const data = await fetch('http://localhost:8000/api/auth/register', reqOptions)
                 .then(res => res.json());
 
+            // If they didnt verify the code or it expired
+            if (data.error == 'no code') {
+                return setCode({ message: 'Send verification' });
+            } else if (data.error == 'wrong code') {
+                return setCode({ message: 'Wrong code' });
+            }
+
             // Error check: if the account already exists
-            if (data.invalid == 'exists') {
-                return setEmail({ errorMsg: 'Email already exists' });
+            if (data.error == 'exists') {
+                return setEmail({ errorMsg: 'Account already exists' });
             } else {
                 // Store the token/data and navigate after they registered
                 localStorage.setItem('user', JSON.stringify(data));
@@ -104,6 +120,31 @@ export const Register = () => {
 
         setEmojis('');
         setPage(page - 1);
+    };
+
+    const sendEmail = async () => {
+        if (!emailRegex.test(email.value)) {
+            return setCode({ message: 'Enter a valid school email' });
+        }
+
+        // Options for the request
+        const reqOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email.value })
+        };
+
+        // Make request to backend to register user
+        const data = await fetch('http://localhost:8000/api/auth/verifyemail', reqOptions)
+            .then(res => res.json());
+
+        if (data.error === 'exists') {
+            setCode({ message: 'Account already exists' });
+        } else if (data.error === 'limit') {
+            setCode({ message: 'Try again in 2 minutes' });
+        } else {
+            setCode({ message: 'Email sent!' });
+        }
     };
 
     // Enter their name
@@ -190,6 +231,18 @@ export const Register = () => {
                 Password
             </Input>
             <InputError>{password.errorMsg}</InputError>
+            <div className="position-relative">
+                <Input
+                    value={code.value} error={!code.message.startsWith('Email')}
+                    onChange={e => setCode({ value: e.target.value, message: '' })}
+                >
+                    Enter 6-digit code
+                </Input>
+                <InputError type={code.message.startsWith('Email') ? 'success' : 'error'}>
+                    {code.message}
+                </InputError>
+                <Button type="3" onClick={sendEmail}>Send</Button>
+            </div>
             <ButtonContainer>
                 <Button type="1" onClick={backPage}>Back</Button>
                 <Button type="2" onClick={nextPage}>Next</Button>
@@ -201,7 +254,6 @@ export const Register = () => {
     // If theyre logged in, then itll redirect to the hompage
     useEffect(() => {
         getUser().then(status => {
-            console.log(status);
             if (status == 'loggedin') {
                 navigate('/home');
             } else {

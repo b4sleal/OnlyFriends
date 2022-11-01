@@ -69,7 +69,7 @@ export const Input = (props) => {
 export const InputError = (props) => {
     return (
         <>
-            <div className="error-label">
+            <div className={`${props.type || 'error'}-label`}>
                 {props.children}
             </div>
         </>
@@ -94,7 +94,7 @@ export const Button = (props) => {
     return (
         <>
             <button
-                className={`default-btn default-btn btn-${props.type} ` + props.className}
+                className={`default-btn default-btn btn-${props.type} ` + (props.className || "")}
                 type="button"
                 onClick={props.onClick}
             >

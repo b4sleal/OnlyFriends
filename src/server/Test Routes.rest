@@ -1,0 +1,54 @@
+# Run verify email to get the verification code
+# Run the register to create an account (using the code)
+# Run login to test logging in (website logs out automatically after x time)
+
+
+###
+
+#
+# Send an email verification
+#   sent - the email was sent to their inbox
+#   limit - you have already sent an email verification in the last 2 minutes
+#   error - they entered an invalid email, turned off emails, blocked our address, etc i think
+#
+POST http://localhost:8000/api/auth/verifyemail HTTP/1.1
+content-type: application/json
+
+{   
+    "email": "absh9661@mylaurier.ca"
+}
+
+###
+
+#
+# Test register
+#   exists - an account with that email already exists
+#   { email, token } - the account was created successfully!
+#
+POST http://localhost:8000/api/auth/register HTTP/1.1
+content-type: application/json
+
+{
+    "name": "basi",
+    "age": "18", 
+    "gender": "male",    
+    "email": "absh9661@mylaurier.ca",
+    "password": "SomePassword",
+    "code": "69949 "
+}
+
+#
+# Test login
+#   invalid
+#       - email --> well the emails invalid duh
+#       - password --> password isnt correct
+#
+#   { email, token } - log in was successful, they have also been redirected
+#
+POST http://localhost:8000/api/auth/login HTTP/1.1
+content-type: application/json
+
+{  
+    "email": "absh9661@mylaurier.ca",
+    "password": "SomePassword"
+}

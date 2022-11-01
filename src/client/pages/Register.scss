@@ -15,7 +15,7 @@
     padding-left: 0px;
     margin-left: 30px;
     margin-right: 30px;
-    margin-top: 15%;
+    margin-top: 25vh;
     margin-bottom: 26px;
     background: white;
     border-radius: 15px;
@@ -26,6 +26,11 @@
         width: 100%;
     }
 
+    /*********/
+
+    /** 
+     * Buttons and input 
+     */
     .button-container {
         display: flex;
         justify-content: space-between;
@@ -41,11 +46,6 @@
         transform: translate(3px, 3px);
     }
 
-    /*********/
-
-    /** 
-     * Buttons and input 
-     */
     .btn-1,
     .btn-select {
         background: white;
@@ -67,6 +67,22 @@
     .btn-selected:hover {
         box-shadow: none;
         transform: none
+    }
+
+    .btn-3 {
+        color: #8350b6;
+        position: absolute;
+        left: 200px;
+        top: 0px;
+        border: none;
+        font-size: 16px;
+        transition: 0.3s ease all;
+    }
+
+    .btn-3:hover {
+        font-size: 17px;
+        box-shadow: none;
+        transform: none;
     }
 
     .input-group {
@@ -165,6 +181,14 @@
 
     .error-label {
         color: crimson;
+        font-size: 12px;
+        margin-top: 2px;
+        margin-bottom: 45px;
+        padding-left: 5px
+    }
+
+    .success-label {
+        color: forestgreen;
         font-size: 12px;
         margin-top: 2px;
         margin-bottom: 45px;

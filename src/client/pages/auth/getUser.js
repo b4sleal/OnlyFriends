@@ -10,9 +10,13 @@ export const getUser = async () => {
             }
         };
 
-        const data = await fetch('http://localhost:8000/api/auth/verifytoken', reqOptions)
+        const data = await fetch('http://localhost:8000/api/auth/loginsession', reqOptions)
             .then(res => res.json())
             .catch(() => { });
+
+        if (data.message === 'token expired') {
+            localStorage.removeItem('user');
+        }
 
         return data?.message;
     }
