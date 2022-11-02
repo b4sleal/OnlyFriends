@@ -4,6 +4,8 @@ const { doc, getDoc, setDoc } = require('firebase/firestore');
 const { db } = require('../firebase');
 const { createToken } = require('../auth/jwt');
 
+//user info is everything else (pass, email, etc)
+
 module.exports = (app) => {
     // Handle registers
     app.post('/api/auth/register', async (req, res) => {
@@ -31,7 +33,7 @@ module.exports = (app) => {
             return res.send({ error: 'exists' });
         }
 
-        const salt = bcrypt.genSaltSync(); // For 
+        const salt = bcrypt.genSaltSync(); // Generate string to randomize password
 
         // Save their registered info
         setDoc(initDoc, {

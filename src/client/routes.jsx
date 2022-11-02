@@ -12,6 +12,6 @@ export default (
         <Route path="/" element={<MainPage />} />
         <Route path="home" element={<Homepage />} />
         <Route path="register" element={<Register />} />
-        <Route path="LogInPage" element={<LogInPage />} />
+        <Route path="loginpage" element={<LogInPage />} />
     </Routes>
 );

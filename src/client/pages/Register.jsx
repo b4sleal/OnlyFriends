@@ -14,7 +14,7 @@ import './Register.scss';
 
 export const Register = () => {
     const navigate = useNavigate();
-    const [page, setPage] = useState(4);
+    const [page, setPage] = useState(1);
     const [emojis, setEmojis] = useState('');
     const [loaded, loadPage] = useState();
 
@@ -73,9 +73,12 @@ export const Register = () => {
                 return setCode({ message: 'Verify your email' });
             }
 
+            // here is the start of front end to backend communication o
+            //first, we have to setup what we want to send to the backend
+
             // Options for the request
             const reqOptions = {
-                method: 'POST',
+                method: 'POST', //post means we want to save data
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name: name.value,
@@ -87,11 +90,11 @@ export const Register = () => {
                 })
             };
 
+            // here we make a request to the endpoint api/auth/register 
             // Make request to backend to register user
             const data = await fetch('http://localhost:8000/api/auth/register', reqOptions)
-                .then(res => res.json());
+                .then(res => res.json()); // this is to make the data thats returned into an object
 
-            // If they didnt verify the code or it expired
             if (data.error == 'no code') {
                 return setCode({ message: 'Send verification' });
             } else if (data.error == 'wrong code') {
@@ -233,7 +236,7 @@ export const Register = () => {
             <InputError>{password.errorMsg}</InputError>
             <div className="position-relative">
                 <Input
-                    value={code.value} error={!code.message.startsWith('Email')}
+                    value={code.value} error={!code.message.startsWith('Email') && code.message !== ''}
                     onChange={e => setCode({ value: e.target.value, message: '' })}
                 >
                     Enter 6-digit code

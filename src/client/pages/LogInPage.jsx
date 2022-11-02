@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -6,8 +6,29 @@ import "./LogInPage.scss";
 
 export const LogInPage = () => {
     const navigate = useNavigate();
-    const handleClick = () => {
-        //Login request here
+
+    const reducerFunc = (state, action) => ({ ...state, ...action });
+    const [email, setEmail] = useReducer(reducerFunc, { value: '', message: '' });
+    const [password, setPassword] = useReducer(reducerFunc, { value: '', message: '' });
+
+    const handleClick = async () => {
+        const reqOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        };
+
+        const data = await fetch("http://localhost:8000/api/auth/login", reqOptions)
+            .then(res => res.json());
+
+        console.log(data);
+
+        if (data.error === "email") {
+            return navigate('/register');
+        } else if (data.error === "password") {
+            return setPassword({ message: "Wrong Password" });
+        }
+
     };
 
     return (
@@ -21,6 +42,7 @@ export const LogInPage = () => {
                             type="email"
                             className="form-control mt-1"
                             placeholder="Enter email"
+                            onChange={(e) => setEmail({ value: e.target.value })}
                         />
                     </div>
                     <div className="form-group mt-3 login-password">
@@ -29,20 +51,19 @@ export const LogInPage = () => {
                             type="password"
                             className="form-control mt-1"
                             placeholder="Enter password"
+                            onChange={(e) => setPassword({ value: e.target.value })}
                         />
                     </div>
                     <div className="d-grid gap-2 mt-3 login-buttons">
                         <button
-                            type="submit"
                             className="btn btn-outline-primary login-submit"
-                            onClick={handleClick()}
+                            onClick={e => handleClick()}
                         >
                             Submit
                         </button>
                         <button
-                            type="submit"
                             className="btn btn-outline-secondary login-register"
-                            onClick={navigate("/register")}
+                            onClick={e => navigate('/register')}
                         >
                             Register
                         </button>

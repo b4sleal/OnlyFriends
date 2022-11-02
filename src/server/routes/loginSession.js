@@ -1,8 +1,18 @@
-const { authToken } = require('../auth/jwt');
+const { verifyToken } = require('../auth/jwt');
 
 module.exports = (app) => {
-    // Verify if the user is logged in
-    app.post('/api/auth/loginsession', authToken, async (req, res) => {
-        res.send({ message: 'loggedin' });
+    app.post('/api/auth/loginsession', async (req, res) => {
+        const authHeader = req.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1];
+
+        if (!token) return res.send({ message: 'no token' });
+
+        const loggedin = await verifyToken(token); //basically checks if the token is expired
+
+        if (!loggedin) {
+            res.send({ message: 'token expired' });
+        } else {
+            res.send({ message: 'loggedin' });
+        }
     });
 };
