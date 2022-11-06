@@ -36,7 +36,7 @@ module.exports = (app) => {
         });
 
         const mailOptions = {
-            from: 'OnlyFriends',
+            from: 'OnlyFriends <dbrown@wlu.ca>',
             to: data.email,
             subject: 'Verification Code',
             html: `Enter the verification code to create your account: ${code}`,

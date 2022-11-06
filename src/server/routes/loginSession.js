@@ -1,9 +1,8 @@
 const { verifyToken } = require('../auth/jwt');
 
 module.exports = (app) => {
-    app.post('/api/auth/loginsession', async (req, res) => {
-        const authHeader = req.headers['authorization'];
-        const token = authHeader && authHeader.split(' ')[1];
+    app.get('/api/auth/loginsession', async (req, res) => {
+        const { token } = req.query;
 
         if (!token) return res.send({ message: 'no token' });
 

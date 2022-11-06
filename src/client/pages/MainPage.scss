@@ -10,7 +10,6 @@
     margin-bottom: 26px;
     background: white;
     border-radius: 15px;
-    box-shadow: #7d8185 0px 0px 10px 1px
 }
 
 @media screen and (min-width: 1800px) {
@@ -55,9 +54,19 @@
 }
 
 .nav-link {
-    color: #5a4847 !important;
+    position: relative;
     font-size: min(16px, calc(50% + 0.8vw));
     border-radius: 6px;
+}
+
+
+.selected-page {
+    position: relative;
+    display: block;
+    width: 15px;
+    background: black;
+    height: 2px;
+    margin: 0 auto
 }
 
 /*********/
@@ -70,6 +79,7 @@
     padding-top: 0px !important;
     padding-bottom: 0px !important;
     max-width: 1400px;
+    margin: 0px;
 }
 
 .col {
@@ -77,22 +87,23 @@
 }
 
 .title-header {
-    color: #5a4847;
     margin-bottom: 35px;
-    font-size: 35px;
-    font-weight: bold;
+    font-size: 70px;
+    letter-spacing: -3px;
+    line-height: 60px
 }
 
 .pg {
-    color: #5a4847;
+    color: grey;
     margin-bottom: 35px;
-    font-size: min(16px, calc(50% + 0.8vw))
+    font-size: 25px
 }
 
-.sitting-image {
-    height: min(95%, calc(95% + 0.8vh));
-    width: min(95%, calc(95% + 0.8vw));
-    max-width: 500px
+.pg-small {
+    font-size: 20px;
+    color: #a65aec;
+    margin-bottom: 5px;
+    margin-left: 10px;
 }
 
 /*********/
@@ -106,16 +117,15 @@
 }
 
 .default-btn {
-    border: 2px solid #8350b6;
-    border-radius: 6px;
+    border: 2px solid #a65aec;
+    border-radius: 100px;
     margin-left: 0px;
     margin-right: 18px;
     margin-bottom: 0px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    font-weight: bold;
+    padding-bottom: 15px;
+    padding-top: 15px;
     transition: all 0.3s ease 0s;
-    font-size: min(16px, calc(50% + 0.8vw))
+    font-size: 20px
 }
 
 .default-btn:hover {
@@ -129,15 +139,15 @@
 }
 
 .create-acc-btn {
-    background: #8350b6;
+    background: #a65aec;
     color: white;
-    padding-right: 20px;
-    padding-left: 20px;
+    padding-right: 40px;
+    padding-left: 40px;
 }
 
 .login-btn {
     background: white;
-    color: #8350b6;
-    padding-right: 30px;
-    padding-left: 30px;
+    color: #a65aec;
+    padding-right: 40px;
+    padding-left: 40px;
 }

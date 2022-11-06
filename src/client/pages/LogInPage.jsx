@@ -11,17 +11,16 @@ export const LogInPage = () => {
     const [email, setEmail] = useReducer(reducerFunc, { value: '', message: '' });
     const [password, setPassword] = useReducer(reducerFunc, { value: '', message: '' });
 
-    const handleClick = async () => {
-        const reqOptions = {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        };
+    //changes here, will explain later
+    const handleClick = async (event) => {
+        event.preventDefault();
+        const queryOptions = new URLSearchParams({
+            email: email.value,
+            password: password.value
+        });
 
-        const data = await fetch("http://localhost:8000/api/auth/login", reqOptions)
+        const data = await fetch("http://localhost:8000/api/auth/login?" + queryOptions)
             .then(res => res.json());
-
-        console.log(data);
 
         if (data.error === "email") {
             return navigate('/register');
@@ -57,7 +56,7 @@ export const LogInPage = () => {
                     <div className="d-grid gap-2 mt-3 login-buttons">
                         <button
                             className="btn btn-outline-primary login-submit"
-                            onClick={e => handleClick()}
+                            onClick={handleClick}
                         >
                             Submit
                         </button>

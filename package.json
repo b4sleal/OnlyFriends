@@ -4,6 +4,7 @@
     "main": "src/client/index.js",
     "homepage": ".",
     "dependencies": {
+        "@fortawesome/free-solid-svg-icons": "^6.2.0",
         "bcryptjs": "^2.4.3",
         "bootstrap": "^5.2.2",
         "cors": "^2.8.5",

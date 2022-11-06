@@ -26,6 +26,10 @@
         width: 100%;
     }
 
+    .title-header {
+        margin-bottom: 60px
+    }
+
     /*********/
 
     /** 
@@ -37,8 +41,7 @@
     }
 
     .default-btn {
-        padding-left: 30px;
-        padding-right: 30px;
+        padding: 10px 40px
     }
 
     .default-btn:hover {
@@ -49,12 +52,12 @@
     .btn-1,
     .btn-select {
         background: white;
-        color: #8350b6;
+        color: #a65aec;
     }
 
     .btn-2,
     .btn-selected {
-        background: #8350b6;
+        background: #a65aec;
         color: white;
     }
 
@@ -70,7 +73,7 @@
     }
 
     .btn-3 {
-        color: #8350b6;
+        color: #a65aec;
         position: absolute;
         left: 200px;
         top: 0px;
@@ -117,7 +120,7 @@
     .input-box:valid~.input-label {
         top: -20px;
         font-size: 14px;
-        color: #8350b6;
+        color: #a65aec;
     }
 
     /*********/
@@ -148,7 +151,7 @@
         height: 2px;
         width: 0;
         position: absolute;
-        background: #8350b6;
+        background: #a65aec;
         transition: 0.3s ease all;
     }
 
