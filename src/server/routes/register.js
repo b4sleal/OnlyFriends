@@ -1,31 +1,23 @@
 const bcrypt = require('bcryptjs');
 
 const { doc, getDoc, setDoc } = require('firebase/firestore');
-const { db } = require('../firebase');
+const { db } = require('../database/firebase');
 const { createToken } = require('../auth/jwt');
-
-//user info is everything else (pass, email, etc)
 
 module.exports = (app) => {
     // Handle registers
     app.post('/api/auth/register', async (req, res) => {
-        const { code, ...userInfo } = req.body;
-        const verify = app.emails[userInfo.email];
+        const { code, email, ...userInfo } = req.body;
+        const verify = app.emails[email];
 
-        if (!verify) {
+        if (!verify || verify.time < Date.now()) {
             return res.send({ error: 'no code' });
-        }
-
-        if (verify.time < Date.now()) {
-            return res.send({ error: 'no code' });
-        }
-
-        if (verify.code !== Number(code)) {
+        } else if (verify.code !== Number(code)) {
             return res.send({ error: 'wrong code' });
         }
 
-        const token = createToken(userInfo, '20s');
-        const initDoc = doc(db, 'Users', userInfo.email);
+        const token = createToken(userInfo, '2m');
+        const initDoc = doc(db, 'Users', email); //yup we also need their email so we takin these 3 things for now
         const document = await getDoc(initDoc);
 
         // Check if an account exists with that email
@@ -38,9 +30,11 @@ module.exports = (app) => {
         // Save their registered info
         setDoc(initDoc, {
             ...userInfo,
+            dms: [],
+            matches: [],
             password: bcrypt.hashSync(userInfo.password, salt) // encrypt password
         });
 
-        res.send({ email: userInfo.email, token });
+        res.send({ email, token });
     });
 };

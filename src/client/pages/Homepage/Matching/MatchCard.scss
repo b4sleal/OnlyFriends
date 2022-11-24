@@ -1,0 +1,159 @@
+.match-card {
+    width: fit-content;
+    transform-origin: top left;
+    transform: scale(1.2);
+    height: 550px;
+
+    .small {
+        justify-content: space-between;
+        position: absolute;
+        color: white;
+        background: #a65aec;
+        width: 120px;
+        padding: 5px 10px;
+        border-radius: 100px;
+        font-size: 16px;
+        left: 215px;
+        top: 40px;
+    }
+
+    .match-image {
+        height: min(550px, 550px + 0.8vh);
+        width: min(350px, 350px + 0.8vw);
+        max-width: 550px;
+        border-radius: 40px;
+        border-bottom-right-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+
+    .image-overlay {
+        background: linear-gradient(transparent 40%, black 93%);
+        position: absolute;
+        top: 0px;
+        border-radius: 33px;
+        height: min(550px, 550px + 0.8vh);
+        width: min(350px, 350px + 0.8vw);
+        border-bottom-right-radius: 0px;
+    }
+
+    .image-scroll-ctn {
+        justify-content: space-evenly;
+        width: 300px;
+        position: absolute;
+        top: 20px;
+        left: 23px
+    }
+
+    .image-scroll-bar,
+    .image-scroll-bar-2 {
+        width: 70px;
+        background: white;
+        height: 2px;
+    }
+
+    .image-scroll-bar-2 {
+        background: grey
+    }
+
+    .user-info-container {
+        bottom: 0px;
+        margin-left: 15px;
+        margin-bottom: 20px
+    }
+
+    .heart-emoji,
+    .deny-emoji {
+        transition: 0.3s ease all;
+    }
+
+    .deny-button,
+    .like-button {
+        padding: 15px 65px;
+        border-radius: 100px;
+        border: none
+    }
+
+    .like-button {
+        background: rgba(#a65aec, 0.3);
+        margin-right: 9px;
+        transition: 0.3s ease all;
+
+        &:hover {
+            transform-origin: center;
+            transform: scale(1.1)
+        }
+    }
+
+    .deny-button {
+        background: rgba(#f2757e, 0.3);
+        margin-left: -2px;
+        transition: 0.3s ease all;
+
+        &:hover {
+            transform-origin: center;
+            transform: scale(1.1)
+        }
+    }
+
+    .button-container-2 {
+        width: 330px;
+    }
+
+    .user-nearby-container {
+        position: relative;
+    }
+
+    .user-nearby {
+        width: max-content;
+        position: relative;
+        padding: 0px 20px;
+        border-radius: 100px;
+        background: rgba(grey, 0.4);
+        margin-bottom: 6px
+    }
+
+    .small-2 {
+        color: white;
+        font-size: 16px;
+        margin-bottom: 0px;
+    }
+
+    .name-age {
+        align-items: center;
+        position: relative;
+        font-size: 32px;
+        color: white;
+        font-family: 'Alicante Sans Regular';
+        margin-bottom: 5px;
+    }
+
+    .user-program {
+        color: white;
+        margin-bottom: 25px;
+        font-family: Segoe UI;
+        font-size: 15px;
+    }
+
+    .verified-badge {
+        margin-left: 10px;
+        color: #1da1f2;
+        background: radial-gradient(10px circle at 16px 16px, white 90%, transparent 54%)
+    }
+
+    .popup-emoji {
+        position: absolute;
+        display: block;
+        top: 0;
+        width: 40px;
+        height: 40px;
+        opacity: 0;
+        animation: emoji 700ms ease-out forwards,
+    }
+
+    @keyframes emoji {
+        from {
+            transform: translate3d(0, 0, 0);
+            opacity: 1;
+        }
+    }
+}

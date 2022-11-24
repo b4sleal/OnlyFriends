@@ -54,13 +54,12 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, "dist", "index.html")
+            template: path.join(__dirname, "public", "index.html")
         }),
         new NodePolyfillPlugin()
     ],
     devServer: {
-        static: path.resolve(__dirname, "./dist"),
-        hot: true,
+        static: path.resolve(__dirname, "./public"),
         historyApiFallback: true,
         port: 3000
     },

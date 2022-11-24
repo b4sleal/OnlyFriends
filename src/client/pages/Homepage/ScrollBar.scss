@@ -1,0 +1,13 @@
+.message-container {
+    padding: 15px;
+    padding-right: 30px;
+    overflow-y: auto;
+    overflow-x: hidden !important;
+}
+
+.scroll-track {
+    right: 2px;
+    bottom: 2px;
+    top: 15px;
+    border-radius: 3px;
+}

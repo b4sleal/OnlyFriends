@@ -1,19 +1,17 @@
 //Heres the main file for the backend (which just manages the database)
 //The server is running on localhost:8000
 
-
 // useful stuff
 require('dotenv').config();
 const express = require('express');
-const app = express();
 const cors = require('cors');
-
 const routes = require('./routes');
+const socketio = require('./socketio');
 const port = 8000;
-app.emails = {};
+const app = express();
 
-// Ensure responses and replies are JSON (objects)
-app.use(express.json());
+// Store email verification
+app.emails = {};
 
 // Makes API only accessible by our website
 app.use(
@@ -22,19 +20,17 @@ app.use(
         credentials: true
     })
 );
-//Since theres a lot of routes we're separating them 
+
+// Ensure responses and replies are JSON (objects)
+app.use(express.json());
+
+// separating socketio package and routes 
+socketio.init(app);
 routes.init(app);
 
-// Example usage for get and post:
-// Look at Test Routes.rest to try them
-app.get('/api/test', (req, res) => {
-    res.send({ message: 'What the website looks like at this URL' });
-});
-
-app.post('/api/sendmestuff', (req, res) => {
-    //req.body is the data they sent
-    res.send({ message: 'you sent me this!', stuffYOUsent: req.body });
-});
+// Quick register users for testing
+require('./quickRegister')(app);
+// require('./generateUsers')(36);
 
 // Start server on port 8000
 app.listen(port, () => {

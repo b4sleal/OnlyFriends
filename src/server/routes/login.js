@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 // Our stuff
 const { doc, getDoc } = require('firebase/firestore'); //database stuff
-const { db } = require('../firebase');// more database stuff
+const { db } = require('../database/firebase');// more database stuff
 
 module.exports = (app) => {
     // Log in page stuff thing 
@@ -14,7 +14,7 @@ module.exports = (app) => {
             return res.send({ error: 'no email or pass' });
         }
 
-        const token = jwt.sign(data, process.env.TOKEN_SECRET, { expiresIn: '30s' });
+        const token = jwt.sign(data, process.env.TOKEN_SECRET, { expiresIn: '1d' });
         const initialDoc = doc(db, 'Users', data.email);
         const document = await getDoc(initialDoc);
 

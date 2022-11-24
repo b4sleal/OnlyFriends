@@ -2,8 +2,8 @@ import React from 'react';
 
 function ProfileCard() {
     return (
-        <div>ProfileCard</div>
+        <div>ProfileCard </div>
     );
 }
 
-export default ProfileCard;
+export default ProfileCard; 

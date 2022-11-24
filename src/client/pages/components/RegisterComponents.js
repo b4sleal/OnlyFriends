@@ -8,7 +8,7 @@ export const CardHolder = (props) => {
                 <div className="main-container">
                     <div className="container py-5 ctn-1">
                         <div className="row-cols-1 row-cols-md-2 d-flex justify-content-center">
-                            <div className="col mb-4">
+                            <div className=" col mb-4">
                                 <div>
                                     {props.children}
                                 </div>
@@ -23,7 +23,6 @@ export const CardHolder = (props) => {
 
 // Header on the card
 export const Title = (props) => {
-
     return (
         <>
             <h1 className="title-header">
@@ -44,6 +43,7 @@ export const Input = (props) => {
         }
 
         props.onChange(event); // run the original event 
+        return true;
     };
 
     return (
@@ -52,8 +52,10 @@ export const Input = (props) => {
                 <input className="input-box" required
                     value={props.value}
                     autoComplete={props.autoComplete}
+                    maxLength={props.maxLength}
                     type={props.type || 'text'}
                     onChange={event => handleInput(event)}
+                    onKeyDown={event => event.key === 'Enter' && handleInput(event) && props.onClick()}
                 />
                 <span className={props.error ? "error-bar" : "bar"}></span>
                 <label className="input-label">

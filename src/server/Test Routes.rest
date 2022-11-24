@@ -1,20 +1,63 @@
 
-#
-# GET test
-#
-GET http://localhost:8000/api/auth/loginsession?token=2 HTTP/1.1
-Content-Type: application/json
 
-###
-#
-# POST test
-#
-POST http://localhost:8000/api/sendmestuff HTTP/1.1
-Content-Type: application/json
+# Register quick without verifying
+POST http://localhost:8000/api/auth/quickregister HTTP/1.1
+content-type: application/json
 
-{   
-    "email": "a227yang@uwaterloo.ca"
-}
+[ 
+    { 
+        "email": "Amber", "name": "Amber", "age": "18", "gender": "female", "password": "Amber",
+        "passions": ["Baking", "Hiking", "Weight Lifting", "Movies", "Guitar", "Art Gallery"],
+        "about": [],
+        "dms":  ["Basi", "Michelle", "Wesgolf"],
+        "likes": [],
+        "song": {
+            "name": "",
+            "artist": "",
+            "img": "",
+            "url": ""
+        }
+    },
+    { 
+        "email": "Basi", "name": "Basi", "age": "18", "gender": "male", "password": "Basi",
+        "passions": ["Painting", "Hiking", "Hockey", "Movies", "Piano", "Karaoke"],
+        "about": [],
+        "dms":  [ "Amber", "Michelle", "Wesgolf"],
+        "likes": [],
+        "song": {
+            "name": "",
+            "artist": "",
+            "img": "",
+            "url": ""
+        }
+    },  
+    { 
+        "email": "Michelle", "name": "Michelle", "age": "18", "gender": "female", "password": "Michelle",
+        "passions": ["Sculpting", "Rock Climbing", "Basketball", "Horror Movies", "Guitar", "Smoking"],
+        "about": [],
+        "dms":  ["Amber", "Basi", "Wesgolf"],
+        "likes": [],
+        "song": {
+            "name": "",
+            "artist": "",
+            "img": "",
+            "url": ""
+        }
+    },
+    { 
+        "email": "Wesgolf", "name": "Wesgolf", "age": "18", "gender": "male", "password": "Wesgolf",
+        "passions": ["Cooking", "Camping", "Boxing", "K-Pop", "Cello", "Art Gallery"],
+        "about": [],
+        "dms":  ["Amber", "Basi", "Michelle"],
+        "likes": [],
+        "song": {
+            "name": "",
+            "artist": "",
+            "img": "",
+            "url": ""
+        }
+    }
+]
 
 ###
 
@@ -64,7 +107,7 @@ content-type: application/json
 #
 #   { email, token } - log in was successful, they have also been redirected
 
-POST http://localhost:8000/api/auth/login HTTP/1.1
+POST http://localhost:8080/api/auth/login HTTP/1.1
 content-type: application/json
 
 {  

@@ -1,35 +1,98 @@
 .login-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100vw;
-	height: 100vh;
-}
+    max-width: 640px;
+    padding-top: 30px;
+    padding-left: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25vh;
+    margin-bottom: 26px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: #7d8185 0px 0px 10px 1px;
 
-.login-form {
-	width: 420px;
-	box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
-	padding-top: 30px;
-	padding-bottom: 20px;
-	border-radius: 8px;
-	background-color: white;
-}
+    //we now need to copy the button css
+    .padding {
+        padding: 10px 0;
+    }
 
-.login-content {
-	padding-left: 12%;
-	padding-right: 12%;
-}
+    .button {
+        all: unset;
+        cursor: pointer;
+        padding: 10px 40px;
+        border: 2px solid #a65aec;
+        border-radius: 100px;
+        margin-left: 0px;
+        margin-right: 18px;
+        margin-bottom: 0px;
+        transition: all 0.3s ease 0s;
+        font-size: 20px;
 
-.login-title {
-	text-align: center;
-	margin-bottom: 1em;
-	font-size: 24px;
-	color: rgb(34, 34, 34);
-	font-weight: 800;
-}
+        &:hover {
+            box-shadow: -8px -8px 15px 5px #c7b4f7;
+        }
 
-label {
-	font-size: 14px;
-	font-weight: 600;
-	color: rgb(34, 34, 34);
+        @media only screen and (max-width:600px) {
+            padding: 10px 15px;
+        }
+    }
+
+    .login-form {
+        padding-top: 10px;
+        padding-bottom: 20px;
+        border-radius: 8px;
+        background-color: white;
+    }
+
+    .login-content {
+        padding-left: 12%;
+        padding-right: 12%;
+    }
+
+    .login-title {
+        @extend .padding;
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 30px;
+        color: rgb(34, 34, 34);
+        font-weight: 800;
+    }
+
+    .login-email {
+        @extend .padding;
+    }
+
+    .login-password {
+        @extend .padding;
+    }
+
+    .error-msg {
+        padding-top: 2px;
+        padding-left: 12px;
+        color: crimson;
+    }
+
+    .login-buttons {
+        display: flex;
+        padding: 20px 0;
+        justify-content: space-between;
+        max-width: 100%;
+
+        .login-submit {
+            @extend .button;
+            background: white;
+            color: #a65aec;
+        }
+
+        .login-register {
+            @extend .button;
+            background: #a65aec;
+            color: white;
+        }
+    }
+
+    label {
+        font-size: 20px;
+        font-weight: 600;
+        color: rgb(34, 34, 34);
+    }
 }

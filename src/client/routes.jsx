@@ -4,14 +4,18 @@ import React from "react";
 import { MainPage } from "./pages/MainPage";
 import { LogInPage } from "./pages/LogInPage";
 import { Register } from "./pages/Register";
-import { Homepage } from "./pages/homepage";
+import { Messaging } from "./pages/Homepage/Messaging";
+import { SettingsPage } from "./pages/Homepage/Settings";
+import { Match } from "./pages/Homepage/Matching/Match";
 
 export default (
     <Routes>
-        {/*anything besides the elements below wil just route to the main page*/}
         <Route path="/" element={<MainPage />} />
-        <Route path="home" element={<Homepage />} />
-        <Route path="register" element={<Register />} />
-        <Route path="loginpage" element={<LogInPage />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/loginpage" element={<LogInPage />} />
+
+        <Route path="/home" element={<Match />} />
+        <Route path="/home/messaging" element={<Messaging />} />
+        <Route path="/home/settings" element={<SettingsPage />} />
     </Routes>
 );

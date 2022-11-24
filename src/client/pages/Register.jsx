@@ -1,6 +1,6 @@
 import { Navigate, redirect, useNavigate } from 'react-router-dom';
 import React, { useState, useReducer, useEffect } from 'react';
-import { getUser } from './auth/getUser';
+import { authUser } from './auth/authUser';
 
 import {
     Button,
@@ -11,6 +11,10 @@ import {
     Title
 } from './components/RegisterComponents';
 import './Register.scss';
+
+// Spotify api tingz
+import SpotifyWebApi from 'spotify-web-api-node';
+
 
 export const Register = () => {
     const navigate = useNavigate();
@@ -28,10 +32,12 @@ export const Register = () => {
     const [code, setCode] = useReducer(reducerFunc, { value: '', message: '' });
 
     // Validate email address
-    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(mylaurier|uwaterloo|utoronto|queensu)\.ca$/;
+    //const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(mylaurier|uwaterloo|utoronto|queensu)\.ca$/;
+    const emailRegex = /^.+@\w+\.c(a|om)$/;
 
     // Handle clicking next button
     const nextPage = async (event) => {
+
         setEmojis('');
 
         //Verify inputs before going to the next page
@@ -95,7 +101,7 @@ export const Register = () => {
             const data = await fetch('http://localhost:8000/api/auth/register', reqOptions)
                 .then(res => res.json()); // this is to make the data thats returned into an object
 
-            if (data.error == 'no code') {
+            if (!data || data.error == 'no code') {
                 return setCode({ message: 'Send verification' });
             } else if (data.error == 'wrong code') {
                 return setCode({ message: 'Wrong code' });
@@ -141,7 +147,7 @@ export const Register = () => {
         const data = await fetch('http://localhost:8000/api/auth/verifyemail', reqOptions)
             .then(res => res.json());
 
-        if (data.error === 'exists') {
+        if (!data || data.error === 'exists') {
             setCode({ message: 'Account already exists' });
         } else if (data.error === 'limit') {
             setCode({ message: 'Try again in 2 minutes' });
@@ -155,8 +161,9 @@ export const Register = () => {
         <CardHolder>
             <Title>Lets hear about yourself</Title>
             <Input
-                value={name.value} error={name.errorMsg}
+                value={name.value} error={name.errorMsg} maxLength={16}
                 onChange={e => setName({ value: e.target.value, errorMsg: '' })}
+                onClick={nextPage}
             >
                 Your Name
             </Input>
@@ -173,8 +180,9 @@ export const Register = () => {
         <CardHolder>
             <Title>Can you consent</Title>
             <Input
-                value={age.value} error={age.errorMsg} valid="number"
+                value={age.value} error={age.errorMsg} valid="number" maxLength={2}
                 onChange={e => setAge({ value: e.target.value, errorMsg: '' })}
+                onClick={nextPage}
             >
                 Age
             </Input>
@@ -221,7 +229,7 @@ export const Register = () => {
             <Title>Lets hear about yourself</Title>
             <Input
                 value={email.value} error={email.errorMsg}
-                onChange={e => setEmail({ value: e.target.value, errorMsg: '' })}
+                onChange={e => setEmail({ value: e.target.value.toLowerCase(), errorMsg: '' })}
             >
                 Email
             </Input>
@@ -231,6 +239,7 @@ export const Register = () => {
                 value={password.value} error={password.errorMsg} autoComplete="new-password"
                 onChange={e => setPassword({ value: e.target.value, errorMsg: '' })}
             >
+
                 Password
             </Input>
             <InputError>{password.errorMsg}</InputError>
@@ -256,13 +265,30 @@ export const Register = () => {
     // This will only run ONCE when page is loaded
     // If theyre logged in, then itll redirect to the hompage
     useEffect(() => {
-        getUser().then(status => {
-            if (status == 'loggedin') {
+        authUser().then(status => {
+            if (status.message == 'loggedin') {
                 navigate('/home');
             } else {
                 loadPage(true);
             }
         });
+
+        // const spotifyApi = new SpotifyWebApi({
+        //     refreshToken: 'AQCRPD9PiER-s33DWnh_UpI-cMGFarDkLZeKm_og9JawTp4-NgchaExXrOoBKA45M9u4NzMHlu6K2JsRltjM6CyWqrl0ZNbhVWaYNW3SgBxSJZ-IknmbfhomHK8gtKotvXA',
+        //     clientId: 'f76e2cc77a064692928a9e019f67af96',
+        //     clientSecret: '2d82a3c9a3a84405b21dabd345a9b6fa',
+        //     redirectUri: 'http://localhost:8000/spotify'
+        // });
+
+        // spotifyApi.refreshAccessToken((err, res) => {
+        //     spotifyApi.setAccessToken(res.body.access_token);
+        //     spotifyApi.getTrack('7eJMfftS33KTjuF7lTsMCx').then(s => {
+        //         const data = s.body;
+        //         const artists = data.artists.map(s => s.name);
+        //         const name = data.name;
+        //         console.log(name, artists);
+        //     });
+        // });
     }, []);
 
     const pages = [page1, page2, page3, page4];

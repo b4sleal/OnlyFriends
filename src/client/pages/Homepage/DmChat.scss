@@ -2,7 +2,6 @@
     position: absolute;
     bottom: 60px;
     right: 30px;
-    display: none;
 }
 
 .emoji-button {
@@ -67,6 +66,8 @@
     padding-right: 30px;
     overflow-y: auto;
     overflow-x: hidden !important;
+    display: flex;
+    flex-direction: column;
 }
 
 .sent-message-container-left,
@@ -81,6 +82,10 @@
     word-wrap: break-word;
     text-align: right;
     width: fit-content;
+
+    &:first-child {
+        margin-top: auto
+    }
 }
 
 .sent-message-container-left {
