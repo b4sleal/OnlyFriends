@@ -13,18 +13,19 @@ export const HomePage = ({ initPage }) => {
         <div className="section-container">
             <Navbar page={page} setPage={setPage} />
 
-            <div className="match-container" style={{ display: page == 1 || 'none' }}>
-                <Match />
-            </div>
+            <div className="pages-container">
+                <div className="match-container position-relative" style={{ display: page == 1 ? 'flex' : 'none' }}>
+                    <Match />
+                </div>
 
-            <div className="messaging-container" style={{ display: page == 2 || 'none' }}>
-                <Messaging />
-            </div>
+                <div className="messaging-container" style={{ display: page == 2 || 'none' }}>
+                    <Messaging />
+                </div>
 
-            <div className="settings-container" style={{ display: page == 2 || 'none' }}>
-                <Settings />
+                <div className="settings-container" style={{ display: page == 3 || 'none' }}>
+                    <Settings />
+                </div>
             </div>
         </div>
     );
-
 };

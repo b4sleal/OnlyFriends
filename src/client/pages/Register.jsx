@@ -1,6 +1,8 @@
 import { Navigate, redirect, useNavigate } from 'react-router-dom';
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useReducer, useEffect, useCallback } from 'react';
 import { authUser } from './auth/authUser';
+import SpotifyApi from 'spotify-web-api-node';
+import Cropper from 'react-easy-crop';
 
 import {
     Button,
@@ -10,11 +12,14 @@ import {
     CardHolder,
     Title
 } from './components/RegisterComponents';
+
 import './Register.scss';
 
-// Spotify api tingz
-import SpotifyWebApi from 'spotify-web-api-node';
-
+const spotifyApi = new SpotifyApi({
+    clientId: 'f76e2cc77a064692928a9e019f67af96',
+    clientSecret: '2d82a3c9a3a84405b21dabd345a9b6fa',
+    redirectUri: 'http://localhost:8000/spotify'
+});
 
 export const Register = () => {
     const navigate = useNavigate();
@@ -32,8 +37,8 @@ export const Register = () => {
     const [code, setCode] = useReducer(reducerFunc, { value: '', message: '' });
 
     // Validate email address
-    //const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(mylaurier|uwaterloo|utoronto|queensu)\.ca$/;
-    const emailRegex = /^.+@\w+\.c(a|om)$/;
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(mylaurier|uwaterloo|utoronto|queensu)\.ca$/;
+    //const emailRegex = /^.+@\w+\.c(a|om)$/;
 
     // Handle clicking next button
     const nextPage = async (event) => {
@@ -262,6 +267,42 @@ export const Register = () => {
         </CardHolder>
     );
 
+    // const [yourImage, setImg] = useState();
+    // const handleProfilePicChange = (e) => {
+    //     const file = new FileReader();
+    //     file.readAsDataURL(e.target.files[0]);
+    //     file.onload = () => {
+    //         setImg(file.result);
+    //     };
+    // };
+
+    // const [crop, setCrop] = useState({ x: 0, y: 0 });
+    // const [zoom, setZoom] = useState(1);
+
+    // const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    //     console.log(croppedArea, croppedAreaPixels);
+    // }, []);
+
+    // const page5 = (
+    //     <CardHolder>
+    //         <div className='input-container'>
+    //             <div className="input-title">Profile Picture</div>
+    //             <input type="file" onChange={handleProfilePicChange} />
+    //         </div>
+    //         {yourImage &&
+    //             <Cropper
+    //                 image={yourImage}
+    //                 crop={crop}
+    //                 zoom={zoom}
+    //                 aspect={10 / 16}
+    //                 onCropChange={setCrop}
+    //                 onCropComplete={onCropComplete}
+    //                 onZoomChange={setZoom}
+    //             />
+    //         }
+    //     </CardHolder>
+    // );
+
     // This will only run ONCE when page is loaded
     // If theyre logged in, then itll redirect to the hompage
     useEffect(() => {
@@ -272,23 +313,6 @@ export const Register = () => {
                 loadPage(true);
             }
         });
-
-        // const spotifyApi = new SpotifyWebApi({
-        //     refreshToken: 'AQCRPD9PiER-s33DWnh_UpI-cMGFarDkLZeKm_og9JawTp4-NgchaExXrOoBKA45M9u4NzMHlu6K2JsRltjM6CyWqrl0ZNbhVWaYNW3SgBxSJZ-IknmbfhomHK8gtKotvXA',
-        //     clientId: 'f76e2cc77a064692928a9e019f67af96',
-        //     clientSecret: '2d82a3c9a3a84405b21dabd345a9b6fa',
-        //     redirectUri: 'http://localhost:8000/spotify'
-        // });
-
-        // spotifyApi.refreshAccessToken((err, res) => {
-        //     spotifyApi.setAccessToken(res.body.access_token);
-        //     spotifyApi.getTrack('7eJMfftS33KTjuF7lTsMCx').then(s => {
-        //         const data = s.body;
-        //         const artists = data.artists.map(s => s.name);
-        //         const name = data.name;
-        //         console.log(name, artists);
-        //     });
-        // });
     }, []);
 
     const pages = [page1, page2, page3, page4];

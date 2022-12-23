@@ -5,9 +5,18 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './MainPage.scss';
-import image from '../img/MainPage/match_image.png';
+import image1 from '../img/MainPage/match_image.png';
+import image2 from '../img/MainPage/match_image2.png';
+import image3 from '../img/MainPage/Simon.png';
+import image4 from '../img/MainPage/match_image4.png';
+import image5 from "../img/MainPage/Liam.png";
 import { ProfileImage } from './components/ProfileCard';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCards, Autoplay } from "swiper";
+
+import 'swiper/css';
+import "swiper/css/effect-cards";
 export const MainPage = () => {
     const [page, setPage] = useState(1);
 
@@ -17,21 +26,37 @@ export const MainPage = () => {
             <section className="page-card">
                 <NavBar setPage={setPage} page={page}></NavBar>
                 <Main />
-                <About />
             </section>
         </div>
     );
 };
 
-
 const About = () => {
-
     return (
-        <div id="About">
-            The purpose of Onlyfriends is to connect university students with others based on different
-        </div>
+        <>
+            <div id="About" style={{ marginTop: '100px' }}>
+                <div style={{ fontSize: '40px' }}>
+                    <i class="fa-solid fa-school-flag" style={{ color: "#a65aec" }}></i>
+                    <span className="small-title-header">Inclusive</span>
+                    <p className="pg">Only match with people within your school</p>
+                </div>
+            </div>
+            <div style={{ marginTop: '100px' }}>
+                <div style={{ fontSize: '40px' }}>
+                    <i class="fa-solid fa-users-medical" style={{ color: "#a65aec" }}></i>
+                    <span className="small-title-header">20k+ Users</span>
+                    <p className="pg">Search thousands of peope in your school<br />and even in nearby schools </p>
+                </div>
+            </div>
+        </>
     );
 };
+
+const Features = () => {
+
+};
+
+import logo from '../img/Homepage/OF.png';
 
 const NavBar = ({ setPage, page }) => {
     const navigate = useNavigate();
@@ -40,7 +65,8 @@ const NavBar = ({ setPage, page }) => {
         <nav className="navbar navbar-light navbar-expand-md py-3">
             <div className="container justify-content-normal" style={{ maxWidth: '1200px', margin: 0 }}>
                 <a className="navbar-brand d-flex align-items-center" href="">
-                    <span className="logo-name">OnlyFriends</span>
+                    <img src={logo} alt="logo" height={'40px'} />
+                    <span className="logo-name" style={{ marginLeft: '5px' }}>OnlyFriends</span>
                 </a>
                 <button data-bs-toggle="collapse" className="navbar-toggler" data-bs-target="#navcol-3">
                     <span className="visually-hidden">Toggle navigation</span>
@@ -82,6 +108,7 @@ const NavBar = ({ setPage, page }) => {
 };
 
 const Main = () => {
+    const navigate = useNavigate();
 
     return (
         <div id="Home" className="main-container">
@@ -98,9 +125,22 @@ const Main = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col col-2" style={{ position: 'relative', width: '350px' }}>
-                        <ProfileImage image={image} name={"Sydney"} age={"23"} />
+                    <div className="col col-2" style={{ position: 'relative', width: '350px', transform: 'scale(1.15)', marginTop: '30px', marginRight: '100px' }}>
+                        <Swiper
+                            effect={"cards"}
+                            grabCursor={true}
+                            modules={[EffectCards, Autoplay]}
+                            autoplay={{ delay: 2000, stopOnLastSlide: true, waitForTransition: true, pauseOnMouseEnter: false }}
+                            speed={1000}
+                        >
+                            <SwiperSlide><ProfileImage image={image1} name={"Sydney"} age={"20"} degree={"Computer Engineering"} verified={true} /></SwiperSlide>
+                            <SwiperSlide><ProfileImage image={image2} name={"Olivia"} age={"23"} degree={"Biological and Chemical Sciences (PhD)"} verified={true} /></SwiperSlide>
+                            <SwiperSlide><ProfileImage image={image3} name={"Simon"} age={"26"} degree={"Communication Studies (MA)"} /></SwiperSlide>
+                            <SwiperSlide><ProfileImage image={image4} name={"Isabella"} age={"24"} degree={"Medicine"} verified={true} /></SwiperSlide>
+                            <SwiperSlide><ProfileImage image={image5} name={"Liam"} age={"19"} degree={"Architecture"} verified={true} /></SwiperSlide>
+                        </Swiper>
                     </div>
+                    <About />
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useReducer } from 'react';
+import { Carousel } from 'react-responsive-carousel';
 
 import { useNavigate } from 'react-router-dom';
 import { authUser } from '../auth/authUser';
@@ -13,6 +14,18 @@ import Avatar, { genConfig } from 'react-nice-avatar';
 import "./Messaging.scss";
 
 import spotify from '../../img/MainPage/spotify.svg';
+
+import Anna from '../../img/MainPage/Anna/pic1.png';
+import Daniel from '../../img/MainPage/Daniel.png';
+import Becky from '../../img/MainPage/Becky.png';
+import Simon from '../../img/MainPage/Simon.png';
+import Maya from '../../img/MainPage/Maya.png';
+import James from '../../img/MainPage/James.png';
+import David from '../../img/MainPage/David.png';
+import Rebecca from '../../img/MainPage/Rebecca.png';
+import Liam from '../../img/MainPage/Liam.png';
+
+const userImgs2 = { Anna, Daniel, Becky, Simon, Maya, James, David, Rebecca, Liam };
 
 export const Messaging = () => {
     const navigate = useNavigate();
@@ -37,7 +50,7 @@ export const Messaging = () => {
             const func = (s) =>
                 setAvatar({
                     [s.email]:
-                        <Avatar key={s.email + 'sss'} style={{ width: '60px', height: '60px' }}
+                        <Avatar key={s.email + 'sss'} style={{ width: '50px', height: '50px' }}
                             {...genConfig({ sex: s.gender === 'Male' ? 'man' : 'woman', bgColor: randHex() })}
                         />
                 });
@@ -96,44 +109,71 @@ export const Messaging = () => {
     }, []);
 
     return (
-        <div className="d-flex mess-home-container flex-column">
-            <Navbar page={2} />
-            <div className='d-flex' style={{ height: '100%' }}>
-                <div className="dm-container d-flex flex-column">
-                    <div className="matches-title">
-                        New Matches
-                        <span className="title-extra"> ({matches.length}) </span>
-                    </div>
+        // <div className="d-flex mess-home-container flex-column">
+        <div className='d-flex' style={{ height: '100%' }}>
+            <div className="dm-container d-flex flex-column">
+                <div className="matches-title">
+                    New Matches
+                    <span className="title-extra"> ({matches.length}) </span>
+                </div>
 
-                    <div style={{ height: '160px' }}>
-                        <ScrollBar type={"horiz"} className="d-flex">
-                            {matches.map(s => <Matches key={s.email + 'somerandomness'} name={s.name} gender={s.gender} icon={avatars[s.email]} />)}
-                        </ScrollBar>
-                    </div>
-                    <div className="matches-title">
-                        Conversations
-                        <span className="title-extra"> (Recent) </span>
-                    </div>
-                    <ScrollBar type="vert">
-                        {(onlineUsers && dms.length) ?
-                            dms.map(s =>
-                                <DmProfile isOffline={!onlineUsers.includes(s.email)} setDms={setDms} icon={avatars[s.email]}
-                                    setCurrentDm={setCurrentDm} key={s.email + 'somerandomness'} data={s}
-                                />) : ''}
+                <div style={{ height: '160px' }}>
+                    <ScrollBar type={"horiz"} className="d-flex">
+                        {matches.map(s => <Matches key={s.email + 'somerandomness'} name={s.name} gender={s.gender} icon={avatars[s.email]} />)}
                     </ScrollBar>
                 </div>
+                <div className="matches-title">
+                    Conversations
+                    <span className="title-extra"> (Recent) </span>
+                </div>
+                <ScrollBar type="vert">
+                    {(onlineUsers && dms.length) ?
+                        dms.map(s =>
+                            <DmProfile isOffline={!onlineUsers.includes(s.email)} setDms={setDms} icon={avatars[s.email]}
+                                setCurrentDm={setCurrentDm} key={s.email + 'somerandomness'} data={s}
+                            />) : ''}
+                </ScrollBar>
+            </div>
 
-                <div className="chat-container position-relative d-flex flex-column justify-content-end">
-                    <div className="d-flex justify-content-between user-profile">
-                        {currentDm && <DmProfile iconOnly data={currentDm} icon={avatars[currentDm.email]} />}
-                    </div>
-
-                    {currentDm && <DmChat setDms={setDms} currentDm={currentDm} />}
+            <div className="chat-container position-relative d-flex flex-column justify-content-end">
+                <div className="d-flex justify-content-between user-profile">
+                    {currentDm && <DmProfile iconOnly data={currentDm} icon={avatars[currentDm.email]} />}
                 </div>
 
-                <div className="profile-info-container" >
-                    {!currentDm ? '' :
-                        <div className="d-flex flex-column" style={{ padding: '40px' }}>
+                {currentDm && <DmChat setDms={setDms} currentDm={currentDm} />}
+            </div>
+
+            <div className="profile-info-container" >
+                {!currentDm ? '' :
+
+                    <div className="d-flex flex-column" style={{ padding: '40px', width: '400px', height: '100%' }}>
+                        <ScrollBar type="vert">
+                            <div>
+                                <Carousel
+
+                                    key={currentDm.email + currentDm.age}
+                                    showThumbs={false} showStatus={false} showArrows={true}
+                                    transitionTime={0} useKeyboardArrows={true} width="300px"
+                                    renderArrowPrev={(click) =>
+                                        <button type="button" aria-label="next slide / item" style={{ display: 1 == 1 && 'none' }}
+                                            onClick={e => click()} className="control-arrow control-prev">
+                                            <i className="fa-solid fa-chevron-left"></i>
+                                        </button>
+                                    }
+                                    renderArrowNext={(click) =>
+                                        <button type="button" aria-label="next slide / item" style={{ display: 1 == 4 && 'none' }}
+                                            onClick={e => click()} className="control-arrow control-next">
+                                            <i className="fa-solid fa-chevron-right"></i>
+                                        </button>
+                                    }
+
+                                    selectedItem={0}
+                                    renderIndicator={() => null}
+                                >
+
+                                    {(userImgs2[currentDm.name] && <div key={currentDm.name + Math.random()}> <img className="no-image-select carousel" src={userImgs2[currentDm.name]}></img></div>)}
+                                </Carousel>
+                            </div>
                             <div className='user-bio'>
                                 <span style={{ color: '#454650', marginBottom: '10px' }}>About {currentDm.name}</span>
                                 <div className="bio-desc">
@@ -157,6 +197,8 @@ export const Messaging = () => {
                                 </div>
                             </div>
 
+
+
                             <div className='user-passions'>
                                 <span style={{ color: '#454650', marginBottom: '10px' }}> Passions </span>
                                 <div className="passion-container d-flex">
@@ -167,12 +209,11 @@ export const Messaging = () => {
                                 className="unmatch-button"
                                 onClick={removeDm}
                             >Unmatch</button>
-                        </div>
-
-                    }
-                </div>
+                        </ScrollBar >
+                    </div>
+                }
             </div>
-        </div>
+        </div >
     );
 };
 
@@ -199,7 +240,7 @@ const Passion = ({ passion, passions }) => {
 
 const bioImages = {
     sign: <i className="fa-solid fa-moon-stars" />,
-    searching: (color) => <i class="fa-solid fa-heart" style={{ color }} />,
+    searching: (color) => <i className="fa-solid fa-heart" style={{ color }} />,
     pet: <i className="fa-solid fa-paw" />,
     height: <i className="fa-solid fa-ruler" style={{ transform: 'scale(0.9)' }} />,
     license: <i className="fa-solid fa-id-card" />,

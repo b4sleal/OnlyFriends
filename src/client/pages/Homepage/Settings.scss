@@ -1,167 +1,172 @@
-.home-container {
-    padding: 5%;
+.section-container {
+    padding: 2% 5%;
     width: 100vw;
     height: 100vh;
+}
 
-    .settings-main-container {
-        display: flex;
-        width: 100%;
-        max-height: 100%;
-        gap: 20px;
 
-        .col-left {
-            width: 30%;
-            padding: 0 10px;
-            border: 1px solid #A9A9A9;
-            border-radius: 20px;
+.settings-main-container {
+    display: flex;
+    width: 100%;
+    max-height: 100%;
+    gap: 20px;
 
-            .profile-pic {
-                display: block;
-                margin: 20px auto;
-                min-width: 80%;
-                max-width: 90%;
-                height: 200px;
-                border-radius: 50%;
-                border-width: 5px;
-                border-style: outset;
+    .col-left {
+        width: 300px;
+        padding: 0 10px;
+        border: 1px solid #A9A9A9;
+        border-radius: 20px;
+
+        .profile-pic {
+            display: block;
+            margin: 20px auto;
+            min-width: 80%;
+            max-width: 90%;
+            height: 200px;
+            border-radius: 50%;
+            border-width: 5px;
+            border-style: outset;
+            object-fit: cover;
+        }
+
+        .tab {
+            cursor: pointer;
+            max-width: 80%;
+            text-align: center;
+            padding: 10px 40px;
+            border: 2px solid #a65aec;
+            border-radius: 100px;
+            margin: 10px auto 20px auto;
+            transition: all 0.3s ease 0s;
+            font-size: 20px;
+
+            &:hover {
+                box-shadow: -8px -8px 15px 5px #c7b4f7;
             }
 
-            .tab {
+            &.active {
+                background: #a65aec;
+                color: white;
+
+                &:hover {
+                    box-shadow: none;
+                }
+            }
+
+            @media only screen and (max-width:600px) {
+                padding: 10px 15px;
+                font-size: 15px;
+            }
+        }
+    }
+
+    .col-right {
+        width: 70%;
+        padding: 0 10px;
+        border: 1px solid #A9A9A9;
+        border-radius: 20px;
+
+        .input-main-container {
+            position: relative;
+            padding: 20px;
+            min-width: 80%;
+            min-height: 80%;
+
+            .input-container {
+                padding: 10px 0;
+
+                .input-title {
+                    padding-left: 5px;
+                    font-weight: bold;
+                }
+
+                .input {
+                    all: unset;
+                    border: 2px solid #808080;
+                    border-radius: 15px;
+                    padding-left: 10px;
+
+                    &:hover {
+                        border-color: #a65aec;
+                    }
+                }
+
+                .passion-ctn {
+                    width: 100%;
+                    flex-wrap: wrap;
+                    margin-bottom: 10px;
+
+                    .passion,
+                    .passion-select {
+                        font-size: 14px;
+                        color: #454650;
+                        border: 1px solid #454650;
+                        padding: 1px 8px;
+                        border-radius: 100px;
+                        margin-right: 5px;
+                        margin-bottom: 3px;
+                    }
+
+                    .passion-select {
+                        color: #a65aec;
+                        border-color: #a65aec
+                    }
+                }
+            }
+
+
+            .submit-button {
+                all: unset;
+                top: auto;
                 cursor: pointer;
                 max-width: 80%;
                 text-align: center;
                 padding: 10px 40px;
                 border: 2px solid #a65aec;
                 border-radius: 100px;
-                margin: 10px auto 20px auto;
+                margin: 20px auto 20px auto;
                 transition: all 0.3s ease 0s;
                 font-size: 20px;
 
                 &:hover {
                     box-shadow: -8px -8px 15px 5px #c7b4f7;
                 }
-
-                &.active {
-                    background: #a65aec;
-                    color: white;
-
-                    &:hover {
-                        box-shadow: none;
-                    }
-                }
-
-                @media only screen and (max-width:600px) {
-                    padding: 10px 15px;
-                    font-size: 15px;
-                }
-            }
-        }
-
-        .col-right {
-            width: 70%;
-            padding: 0 10px;
-            border: 1px solid #A9A9A9;
-            border-radius: 20px;
-
-            .input-main-container {
-                position: relative;
-                padding: 20px;
-                min-width: 80%;
-                min-height: 80%;
-
-                .input-container {
-                    padding: 10px 0;
-
-                    .input-title {
-                        padding-left: 5px;
-                        font-weight: bold;
-                    }
-
-                    .input {
-                        all: unset;
-                        border: 2px solid #808080;
-                        border-radius: 15px;
-                        padding-left: 10px;
-
-                        &:hover {
-                            border-color: #a65aec;
-                        }
-                    }
-
-                    .passion-ctn {
-                        width: 100%;
-                        flex-wrap: wrap;
-                        margin-bottom: 10px;
-
-                        .passion,
-                        .passion-select {
-                            font-size: 14px;
-                            color: #454650;
-                            border: 1px solid #454650;
-                            padding: 1px 8px;
-                            border-radius: 100px;
-                            margin-right: 5px;
-                            margin-bottom: 3px;
-                        }
-
-                        .passion-select {
-                            color: #a65aec;
-                            border-color: #a65aec
-                        }
-                    }
-                }
-
-
-                .submit-button {
-                    all: unset;
-                    top: auto;
-                    cursor: pointer;
-                    max-width: 80%;
-                    text-align: center;
-                    padding: 10px 40px;
-                    border: 2px solid #a65aec;
-                    border-radius: 100px;
-                    margin: 20px auto 20px auto;
-                    transition: all 0.3s ease 0s;
-                    font-size: 20px;
-
-                    &:hover {
-                        box-shadow: -8px -8px 15px 5px #c7b4f7;
-                    }
-                }
-
             }
 
         }
 
-        .page-overlay {
-            z-index: 1000;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, .5);
-            backdrop-filter: blur(5px);
+    }
 
-            .overlay-message {
-                width: 300px;
-                height: 200px;
-                margin: auto;
-                background: white;
-                border-radius: 40px;
+    .page-overlay {
+        z-index: 1000;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, .5);
+        backdrop-filter: blur(5px);
 
-                .overlay-button {
-                    all: unset;
-                    width: 60px;
-                    text-align: center;
-                    border: 1.5px solid #808080;
-                    border-radius: 15px;
+        .overlay-message {
+            width: 300px;
+            height: 200px;
+            margin: auto;
+            background: white;
+            border-radius: 40px;
+            gap: 20px;
 
-                    &:hover {
-                        border-color: #a65aec;
-                    }
+            .overlay-button {
+                all: unset;
+                width: 60px;
+                text-align: center;
+                border: 1.5px solid #808080;
+                border-radius: 15px;
+
+                &:hover {
+                    border-color: #a65aec;
                 }
             }
         }
     }
 }
+
+// }

@@ -29,7 +29,6 @@ module.exports = (app) => {
             res.send({ error: 'no' });
             console.log(error);
         });
-        //getDownloadURL(imageRef).then(url => res.send({ url }));
     });
 };
 

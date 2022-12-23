@@ -1,6 +1,7 @@
 // Our stuff
-const { query, getDocs, getDoc, documentId, collection, where, doc } = require('firebase/firestore'); //database stuff
+const { query, getDocs, collection } = require('firebase/firestore'); //database stuff
 const { db } = require('../database/firebase');// more database stuff
+
 
 module.exports = (app) => {
     app.get('/api/auth/fetchallusers', async (req, res) => {
@@ -8,7 +9,7 @@ module.exports = (app) => {
             collection(db, 'Users')
         ));
 
-        const users = documents.docs.map(s => ({ email: s.id,  ...s.data()}));
+        const users = documents.docs.map(s => ({ email: s.id, ...s.data() }));
 
         res.send({ users });
     });

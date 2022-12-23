@@ -3,26 +3,27 @@ const fetch = (...args) =>
 // const SpotifyWebApi = require('spotify-web-api-node');
 
 module.exports = async (amount) => {
-    const names = await fetch(
-        "https://raw.githubusercontent.com/dominictarr/random-name/master/first-names.json"
-    ).then((r) => r.json());
+    const names = ['Anna', 'Daniel', 'Becky', 'Simon', 'Maya', 'James', 'David', 'Rebecca', 'Liam'];
+    const schools = [
+        "University of Waterloo",
+        "Wilfrid Laurier University",
+        "Conestoga College"
+    ];
 
     const randItem = (e) => e[~~(Math.random() * e.length)];
-    const randNames = new Array(amount).fill().map((s) => randItem(names));
+    const randNames = names;
     const us = ["Basi", "Amber", "Wesgolf", "Michelle"];
 
     const users = [...us, ...randNames].map((name, i) => {
         const rand = (min, max) => ~~(Math.random() * (max - min)) + min;
-
         const passionList = passions.map((s) => randItem(s));
         const gender = Math.random() < 0.5 ? "Male" : "Female";
-        const likes = randNames.filter((s) => s != name).slice(0, 10);
         const dms = randNames
-            .filter((s) => s != name && !likes.includes(s))
+            .filter((s) => s != name)
             .slice(0, 15);
-        const bio = randItem(quotes);
-        const about = abouts.map(s => randItem(s))
 
+        const bio = randItem(quotes);
+        const about = abouts.map(s => randItem(s));
         const data = {
             name,
             email: name,
@@ -35,9 +36,11 @@ module.exports = async (amount) => {
             about,
             dms,
             matches: [],
-            likes: us.includes(name) ? [] : likes,
+            likes: [],
             song: songs[i],
             verified: Math.random() < 0.5,
+            match: rand(50, 95),
+            school: randItem(schools)
         };
 
         return data;
@@ -49,28 +52,25 @@ module.exports = async (amount) => {
         body: JSON.stringify(users),
     };
 
-    const data = await fetch(
+    fetch(
         "http://localhost:8000/api/auth/quickregister",
         reqOptions
     ).then((s) => s.json());
-
-    console.log(data);
 };
 
 const nums = [4, 5, 6];
-const heights = nums.map(s => new Array(11).fill().map((_, e) => s + "'" + (e + 1))).flat()
-const zodiacSigns = ['slut']
-const pets = ['Cat', 'Dog', 'Bird', 'Fish', 'Turtle', 'Ferret', 'Snake', 'Hamster', 'Flying Squirrel', 'Rabbit']
-const sexys = ['Straight', 'unholy things']
-const searching = ['Looking for friends', 'Looking for relationship', 'Looking for anything']
-
+const heights = nums.map(s => new Array(11).fill().map((_, e) => s + "'" + (e + 1))).flat();
+const zodiacSigns = ['Aries', 'Gemini', 'Leo', 'Virgo'];
+const pets = ['Cat', 'Dog', 'Bird'];
+const sexys = ['Straight'];
+const searching = ['Looking for friends', 'Looking for relationship', 'Looking for anything'];
 const abouts = [
-    heights, 
+    heights,
     zodiacSigns,
     pets,
     sexys,
     searching
-]
+];
 
 const passions = [
     //Creatives
@@ -82,35 +82,20 @@ const passions = [
     //Sports
     [
         "Weight Lifting",
-        "Hockey",
-        "Basketball",
-        "Baseball",
-        "Boxing",
-        "Tennis",
-        "Badminton",
-        "Fencing",
         "Soccer",
-        "Table Tennis",
         "Swimming",
         "Volleyball",
-        "Golf",
-        "Boxing",
-        "Running",
-        "Snowboarding",
-        "Ice-Skating",
-        "Rugby",
+        "Running"
     ],
 
     // Media
     [
         "TV Shows",
-        "Movies",
         "Horror Movies",
         "Marvel",
         "K-Pop",
         "Disney",
         "Netflix",
-        "Podcasts",
         "Anime",
         "Manga",
         "K-Drama",
@@ -445,121 +430,7 @@ const songs = [
     },
 ];
 
-const degrees = [
-    "Accounting and Financial Management",
-    "Actuarial Science",
-    "Anthropology",
-    "Applied Mathematics",
-    "Architectural Engineering",
-    "Architecture",
-    "Bachelor of Arts",
-    "Bachelor of Science",
-    "Biochemistry",
-    "Biological and Medical Physics",
-    "Biology",
-    "Biomedical Engineering",
-    "Biomedical Sciences",
-    "Biostatistics",
-    "Biotechnology/Chartered Professional Accountancy",
-    "Business Administration & Computer Science",
-    "Business Administration & Mathematics",
-    "Business programs",
-    "Chemical Engineering",
-    "Chemistry",
-    "Civil Engineering",
-    "Classical Studies (2 majors available)",
-    "Climate and Environmental Change",
-    "Co-op programs",
-    "Combinatorics and Optimization",
-    "Communication Studies",
-    "Computational Mathematics",
-    "Computer Engineering",
-    "Computer Science",
-    "Computing and Financial Management",
-    "Data Science",
-    "Earth Sciences",
-    "Economics",
-    "Education (teaching)",
-    "Electrical Engineering",
-    "English (4 majors available)",
-    "Environment and Business",
-    "Environment, Resources and Sustainability",
-    "Environmental Engineering",
-    "Environmental programs at a glance",
-    "Environmental Science",
-    "Fine Arts (2 majors available)",
-    "French",
-    "Gender and Social Justice",
-    "Geography and Aviation",
-    "Geography and Environmental Management",
-    "Geological Engineering",
-    "Geomatics",
-    "German",
-    "Global Business and Digital Arts",
-    "Health Sciences",
-    "History",
-    "Honours Arts (30 majors available)",
-    "Honours Arts and Business (30 majors available)",
-    "Honours Science",
-    "Information Technology Management",
-    "International Development",
-    "Kinesiology",
-    "Knowledge Integration",
-    "Legal Studies",
-    "Liberal Studies",
-    "Life Sciences (4 majors available)",
-    "Management Engineering",
-    "Materials and Nanosciences",
-    "Mathematical Economics",
-    "Mathematical Finance",
-    "Mathematical Optimization",
-    "Mathematical Physics",
-    "Mathematics (14 majors available)",
-    "Mathematics/Business Administration",
-    "Mathematics/Chartered Professional Accountancy",
-    "Mathematics/Financial Analysis and Risk Management",
-    "Mathematics/Teaching",
-    "Mechanical Engineering",
-    "Mechatronics Engineering",
-    "Medicinal Chemistry",
-    "Medieval Studies",
-    "Minors and specializations",
-    "Music",
-    "Nanotechnology Engineering",
-    "Nursing",
-    "Optometry",
-    "Pathways to medical school and other health professions",
-    "Peace and Conflict Studies",
-    "Pharmacy",
-    "Philosophy",
-    "Physical Sciences (8 majors available)",
-    "Physics",
-    "Physics and Astronomy",
-    "Planning",
-    "Political Science",
-    "Pre-law",
-    "Psychology  Bachelor of Arts",
-    "Psychology Bachelor of Science",
-    "Public Health",
-    "Pure Mathematics",
-    "Recreation and Leisure Studies",
-    "Recreation and Sport Business",
-    "Religious Studies",
-    "Science and Aviation",
-    "Science and Business",
-    "Sexuality, Marriage, and Family Studies",
-    "Social Development Studies",
-    "Social Work",
-    "Sociology",
-    "Software Engineering",
-    "Spanish",
-    "Statistics",
-    "Sustainability and Financial Management",
-    "Systems Design Engineering",
-    "Teaching",
-    "Theatre and Performance",
-    "Therapeutic Recreation",
-];
+const degrees = ["Applied Politics (MAP)", "Biological and Chemical Sciences (PhD)", "Business Administration (MBA)", "Business Economics (MABE)", "Chemistry (MSc)", "Communication Studies (MA)", "Community Music (MA)", "Criminology (MA)", "Cultural Analysis and Social Theory (MA)", "Divinity (MDiv)", "Education (MEd)", "English and Film (PhD)", "English and Film Studies (MA)", "Environmental Studies (MES)", "Finance (MFin)", "Geography (MA) (MSC) (PhD)", "Global Governance (PhD)", "History (MA)", "History (PhD)", "Human Relationships (PhD)", "Integrative Biology (MSc)", "Kinesiology (MKin) (PhD)", "Management (MSc) (PhD)", "Mathematical and Statistical Modelling (PhD)", "Mathematics (MSc)", "Music Therapy (MMT)", "Philosophy (MA)", "Psychology (MA) (MSc) (PhD)", "Public Safety (MPS)", "Religion, Culture and Global Justice (MA)", "Religious Studies (PhD)", "Social Justice and Community Engagement (MA)", "Social Work (MSW)", "Social Work (PhD)", "Sociology (MA)", "Theology (MA)"];
 
 const quotes = [
     "👈 Swipe for less. ",

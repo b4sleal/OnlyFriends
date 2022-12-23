@@ -30,7 +30,7 @@ routes.init(app);
 
 // Quick register users for testing
 require('./quickRegister')(app);
-// require('./generateUsers')(36);
+// require('./generateUsers')(13);
 
 // Start server on port 8000
 app.listen(port, () => {

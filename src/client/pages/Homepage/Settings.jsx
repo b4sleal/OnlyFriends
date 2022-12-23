@@ -20,7 +20,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import spotify from '../../img/MainPage/spotify.svg';
 
-export const SettingsPage = () => {
+export const Settings = () => {
     const [tab, setTab] = useState("profile");
     const [user, setUser] = useState();
     const [profilePic, setProfilePic] = useState();
@@ -48,7 +48,7 @@ export const SettingsPage = () => {
 
         if (email) {
             const user = await getUser(email);
-
+            console.log(user);
             setUser({ email, ...user });
             return user;
         } else {
@@ -144,6 +144,7 @@ export const SettingsPage = () => {
 
     const loadOptions = async (input) => {
         if (!input) return { options: [] };
+
         const queryOptions = new URLSearchParams({
             email: user.email
         });
@@ -160,112 +161,108 @@ export const SettingsPage = () => {
 
     return (
         !user ? '' :
-            <div className="d-flex home-container flex-column">
-                <Navbar page={3} />
-                <div className='settings-main-container'>
-
-                    {!overlay ? '' :
-                        <div className='d-flex position-absolute page-overlay'>
-                            <div className="overlay-message d-flex flex-column justify-content-center align-items-center">
-                                <div>
-                                    Sure?
-                                </div>
-                                <div className='d-flex justify-content-around align-items-center' style={{ width: '100%' }}>
-                                    <button className="overlay-button" onClick={e => handleSubmit()}>Oui</button>
-                                    <button className="overlay-button" onClick={e => setOverlay(false) || setProfilePic()}>Non</button>
-                                </div>
-
+            <div className='settings-main-container justify-content-center'>
+                {!overlay ? '' :
+                    <div className='d-flex position-absolute page-overlay'>
+                        <div className="overlay-message d-flex flex-column justify-content-center align-items-center">
+                            <div>
+                                Are you Sure?
                             </div>
-                        </div>}
-                    <div className='col-left'>
-                        <img className="profile-pic" src={profilePic || currentPic || "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} alt="profile pic" />
-                        <div className={`tab ${tab === "general" ? "active" : ""}`} onClick={e => handleTabClick("general")}>General</div>
-                        <div className={`tab ${tab === "profile" ? "active" : ""}`} onClick={e => handleTabClick("profile")}>Profile</div>
-                    </div>
+                            <div className='d-flex justify-content-around align-items-center' style={{ width: '100%' }}>
+                                <button className="overlay-button" onClick={e => handleSubmit()}>Yes</button>
+                                <button className="overlay-button" onClick={e => setOverlay(false) || setProfilePic()}>No</button>
+                            </div>
 
-                    <div className='col-right'>
-                        {tab === "profile" &&
-                            (<div className='input-main-container'>
-                                <div className='input-container'>
-                                    <div className="input-title">Profile Picture</div>
-                                    <input type="file" onChange={handleProfilePicChange} />
+                        </div>
+                    </div>}
+                <div className='col-left'>
+                    <img className="profile-pic" src={profilePic || currentPic || "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"} alt="profile pic" />
+                    <div className={`tab ${tab === "general" ? "active" : ""}`} onClick={e => handleTabClick("general")}>General</div>
+                    <div className={`tab ${tab === "profile" ? "active" : ""}`} onClick={e => handleTabClick("profile")}>Profile</div>
+                </div>
+
+                <div className='col-right'>
+                    {tab === "profile" &&
+                        (<div className='input-main-container'>
+                            <div className='input-container'>
+                                <div className="input-title">Profile Picture</div>
+                                <input type="file" onChange={handleProfilePicChange} />
+                            </div>
+                            <div className='input-container'>
+                                <div className="input-title">Name</div>
+                                <input className="input" type="text" placeholder='Name' onChange={e => setName(e.target.value)} />
+                            </div>
+                            <div className='input-container'>
+                                <div className="input-title">Passions</div>
+                                <div className="passion-ctn d-flex">
+                                    {categories.map((category, i) =>
+                                        <Click key={category} onClick={e => setPassionType(category)}>
+                                            <div className={"passion" + (category === passionType ? '-select' : '')}>{category}</div>
+                                        </Click>)}
                                 </div>
-                                <div className='input-container'>
-                                    <div className="input-title">Name</div>
-                                    <input type="file" onChange={e => setName(e.target.value)} />
+                                <Select
+                                    styles={{
+                                        control: (baseStyles, state) => ({
+                                            ...baseStyles,
+                                            borderColor: state.isFocused ? "#a65aec" : "#808080",
+                                            "&:hover": {
+                                                borderColor: "#a65aec"
+                                            },
+                                            borderRadius: "15px",
+                                            borderWidth: "2px",
+                                        })
+                                    }}
+
+                                    onChange={(selected) => { setPassions(selected.map(s => s.value)); }}
+                                    closeMenuOnSelect={false}
+                                    components={animatedComponents}
+                                    isMulti
+                                    options={options[passionType]}
+
+                                    value={user.passions.map(s => ({ value: s, label: upper(s) }))}
+                                />
+                            </div>
+
+                            <div className='input-container d-flex flex-column'>
+                                <div>
+                                    <div className="input-title">Favourite Song</div>
                                 </div>
-                                <div className='input-container'>
-                                    <div className="input-title">Passions</div>
-                                    <div className="passion-ctn d-flex">
-                                        {categories.map((category, i) =>
-                                            <Click key={category} onClick={e => setPassionType(category)}>
-                                                <div className={"passion" + (category === passionType ? '-select' : '')}>{category}</div>
-                                            </Click>)}
-                                    </div>
-                                    <Select
-                                        styles={{
-                                            control: (baseStyles, state) => ({
-                                                ...baseStyles,
-                                                borderColor: state.isFocused ? "#a65aec" : "#808080",
-                                                "&:hover": {
-                                                    borderColor: "#a65aec"
-                                                },
-                                                borderRadius: "15px",
-                                                borderWidth: "2px",
-                                            })
-                                        }}
+                                <AsyncPaginate
+                                    key={user.email}
+                                    styles={{
+                                        control: (baseStyles, state) => ({
+                                            ...baseStyles,
+                                            borderColor: state.isFocused ? "#a65aec" : "#808080",
+                                            "&:hover": {
+                                                borderColor: "#a65aec"
+                                            },
+                                            borderRadius: "15px",
+                                            borderWidth: "2px"
+                                        })
+                                    }}
 
+                                    noOptionsMessage={({ inputValue }) => song ? 'Click X to clear' : inputValue ? 'No songs found' : "Enter a song name"}
+                                    isSearchable
+                                    closeMenuOnSelect={false}
+                                    components={animatedComponents}
+                                    loadOptions={loadOptions}
+                                    debounceTimeout={2000}
+                                    isClearable
+                                    onChange={(data) => setSong(data?.value)}
+                                />
+                            </div>
 
-                                        onChange={(selected) => { setPassions(selected.map(s => s.value)); }}
-                                        closeMenuOnSelect={false}
-                                        components={animatedComponents}
-                                        isMulti
-                                        options={options[passionType]}
-                                        defaultValue={user.passions.map(s => ({ value: s, label: upper(s) }))}
-                                    />
-                                </div>
+                            <button className="submit-button" onClick={e => setOverlay(true)}>Save</button>
+                        </div>)}
 
-                                <div className='input-container d-flex flex-column'>
-                                    <div>
-                                        <div className="input-title">Favourite Song</div>
-                                    </div>
-                                    <AsyncPaginate
-                                        key={user.email}
-                                        styles={{
-                                            control: (baseStyles, state) => ({
-                                                ...baseStyles,
-                                                borderColor: state.isFocused ? "#a65aec" : "#808080",
-                                                "&:hover": {
-                                                    borderColor: "#a65aec"
-                                                },
-                                                borderRadius: "15px",
-                                                borderWidth: "2px"
-                                            })
-                                        }}
-
-                                        noOptionsMessage={({ inputValue }) => song ? 'Click X to clear' : inputValue ? 'No songs found' : "Enter a song name"}
-                                        isSearchable
-                                        closeMenuOnSelect={false}
-                                        components={animatedComponents}
-                                        loadOptions={loadOptions}
-                                        debounceTimeout={2000}
-                                        isClearable
-                                        onChange={(data) => setSong(data?.value)}
-                                    />
-                                </div>
-
-                                <button className="submit-button" onClick={e => setOverlay(true)}>Submit</button>
-                            </div>)}
-
-                        {tab === "general" &&
-                            (<div className='input-main-container'>
-                                <div className='input-container'>
-                                    <div className="input-title">Password</div>
-                                    <input className="input" value={password} type="text" placeholder='Password' onChange={e => setPassword(e.target.value)} />
-                                </div>
-                                <button className="submit-button" onClick={handleSubmit}>Save</button>
-                            </div>)}
-                    </div>
+                    {tab === "general" &&
+                        (<div className='input-main-container'>
+                            <div className='input-container'>
+                                <div className="input-title">Password</div>
+                                <input className="input" value={password} type="text" placeholder='Password' onChange={e => setPassword(e.target.value)} />
+                            </div>
+                            <button className="submit-button" onClick={handleSubmit}>Save</button>
+                        </div>)}
                 </div>
             </div>
     );

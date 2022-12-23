@@ -1,5 +1,5 @@
 const SpotifyWebApi = require("spotify-web-api-node");
-const refresh = {}
+const refresh = {};
 
 const spotifyApi = new SpotifyWebApi({
     refreshToken: 'AQCRPD9PiER-s33DWnh_UpI-cMGFarDkLZeKm_og9JawTp4-NgchaExXrOoBKA45M9u4NzMHlu6K2JsRltjM6CyWqrl0ZNbhVWaYNW3SgBxSJZ-IknmbfhomHK8gtKotvXA',
@@ -10,18 +10,15 @@ const spotifyApi = new SpotifyWebApi({
 
 module.exports = (app) => {
     app.get('/api/auth/spotify', async (req, res) => {
-        const {email} = req.query
+        const { email } = req.query;
 
-        console.log('get')
         if (refresh[email] > Date.now()) {
-            console.log('send current!')
             return res.send({ token: spotifyApi.getAccessToken() });
         }
 
-        console.log('reset D:')
         spotifyApi.refreshAccessToken((err, _res) => {
-            spotifyApi.setAccessToken(_res.body.access_token)
-            refresh[email] = Date.now() + 3500 * 1000
+            spotifyApi.setAccessToken(_res.body.access_token);
+            refresh[email] = Date.now() + 3500 * 1000;
 
             res.send({ token: _res.body.access_token });
         });

@@ -4,9 +4,7 @@ import React from "react";
 import { MainPage } from "./pages/MainPage";
 import { LogInPage } from "./pages/LogInPage";
 import { Register } from "./pages/Register";
-import { Messaging } from "./pages/Homepage/Messaging";
-import { SettingsPage } from "./pages/Homepage/Settings";
-import { Match } from "./pages/Homepage/Matching/Match";
+import { HomePage } from './pages/Homepage/HomePage';
 
 export default (
     <Routes>
@@ -14,8 +12,8 @@ export default (
         <Route path="/register" element={<Register />} />
         <Route path="/loginpage" element={<LogInPage />} />
 
-        <Route path="/home" element={<Match />} />
-        <Route path="/home/messaging" element={<Messaging />} />
-        <Route path="/home/settings" element={<SettingsPage />} />
+        <Route path="/home" element={<HomePage initPage={1} />} />
+        <Route path="/home/messaging" element={<HomePage initPage={2} />} />
+        <Route path="/home/settings" element={<HomePage initPage={3} />} />
     </Routes>
 );

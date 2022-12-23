@@ -1,3 +1,116 @@
+.section-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.dm-container {
+    width: 60%;
+    padding: 0 10px;
+    border: 1px solid #dcdcdc;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.chat-container {
+    width: 100%;
+    padding: 10px 20px;
+    border: 1px solid #dcdcdc
+}
+
+
+.matches-title {
+    padding: 15px 10px;
+    width: 300px
+}
+
+.title-extra {
+    color: #A9A9A9;
+    margin-left: 5px;
+    font-size: 12px
+}
+
+.info-box-ctn {
+    width: 300px;
+    flex-wrap: wrap;
+}
+
+.info-box {
+    font-size: 14px;
+    color: #454650;
+    border: 1px solid #454650;
+    padding: 1px 8px;
+    border-radius: 100px;
+    margin-right: 5px;
+    margin-bottom: 3px;
+}
+
+.info-match {
+    @extend .info-box;
+    color: #a65aec;
+    border: 1px solid #a65aec
+}
+
+
+.profile-info-container {
+    width: 60%;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: 1px solid #dcdcdc;
+
+    .user-bio {
+        font-size: 30px;
+        font-family: "Alicante Sans Medium";
+        margin-bottom: 20px;
+
+        .bio-icon {
+            color: #a65aec
+        }
+
+        .bio-desc {
+            font-size: 17px;
+            color: #505965;
+            margin-bottom: 15px;
+        }
+
+        .bio-info-ctn {
+            @extend .info-box-ctn;
+
+            .bio-info {
+                @extend .info-box;
+            }
+
+            .bio-info-match {
+                @extend .info-match;
+            }
+        }
+    }
+
+    .fav-song {
+        @extend .user-bio;
+
+        .song-info {
+            @extend .bio-desc
+        }
+    }
+
+    .user-passions {
+        @extend .user-bio;
+
+        .passion-container {
+            @extend .info-box-ctn;
+
+            .passion {
+                @extend .info-box;
+            }
+
+            .passion-match {
+                @extend .info-match;
+            }
+        }
+    }
+}
+
 .button {
     all: unset;
     cursor: pointer;
@@ -33,117 +146,4 @@
     flex-direction: column;
 }
 
-
-.mess-home-container {
-    padding: 5%;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-
-    .dm-container {
-        width: 60%;
-        padding: 0 10px;
-        border: 1px solid #dcdcdc;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-    }
-
-    .chat-container {
-        width: 100%;
-        padding: 10px 20px;
-        border: 1px solid #dcdcdc
-    }
-
-
-    .matches-title {
-        padding: 15px 10px;
-        width: 300px
-    }
-
-    .title-extra {
-        color: #A9A9A9;
-        margin-left: 5px;
-        font-size: 12px
-    }
-
-    .info-box-ctn {
-        width: 300px;
-        flex-wrap: wrap;
-    }
-
-    .info-box {
-        font-size: 14px;
-        color: #454650;
-        border: 1px solid #454650;
-        padding: 1px 8px;
-        border-radius: 100px;
-        margin-right: 5px;
-        margin-bottom: 3px;
-    }
-
-    .info-match {
-        @extend .info-box;
-        color: #a65aec;
-        border: 1px solid #a65aec
-    }
-
-
-    .profile-info-container {
-        width: 60%;
-        border-top-right-radius: 20px;
-        border-bottom-right-radius: 20px;
-        border: 1px solid #dcdcdc;
-
-        .user-bio {
-            font-size: 30px;
-            font-family: "Alicante Sans Medium";
-            margin-bottom: 20px;
-
-            .bio-icon {
-                color: #a65aec
-            }
-
-            .bio-desc {
-                font-size: 17px;
-                color: #505965;
-                margin-bottom: 15px;
-            }
-
-            .bio-info-ctn {
-                @extend .info-box-ctn;
-
-                .bio-info {
-                    @extend .info-box;
-                }
-
-                .bio-info-match {
-                    @extend .info-match;
-                }
-            }
-        }
-
-        .fav-song {
-            @extend .user-bio;
-
-            .song-info {
-                @extend .bio-desc
-            }
-        }
-
-        .user-passions {
-            @extend .user-bio;
-
-            .passion-container {
-                @extend .info-box-ctn;
-
-                .passion {
-                    @extend .info-box;
-                }
-
-                .passion-match {
-                    @extend .info-match;
-                }
-            }
-        }
-    }
-}
+// }

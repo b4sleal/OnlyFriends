@@ -5,6 +5,8 @@
     "homepage": ".",
     "dependencies": {
         "@fortawesome/free-solid-svg-icons": "^6.2.0",
+        "@popperjs/core": "^2.11.6",
+        "@react-spring/web": "^9.5.5",
         "bcryptjs": "^2.4.3",
         "bootstrap": "^5.2.2",
         "cors": "^2.8.5",
@@ -19,6 +21,8 @@
         "react": "^18.2.0",
         "react-custom-scrollbars-2": "^4.5.0",
         "react-dom": "^18.2.0",
+        "react-easy-crop": "^4.6.3",
+        "react-native-deck-swiper": "^1.1.7",
         "react-nice-avatar": "^1.2.4",
         "react-responsive-carousel": "^3.2.23",
         "react-router-dom": "^6.4.2",
@@ -26,7 +30,8 @@
         "react-select-async-paginate": "^0.7.0",
         "socket.io": "^4.5.3",
         "socket.io-client": "^4.5.3",
-        "spotify-web-api-node": "^5.0.2"
+        "spotify-web-api-node": "^5.0.2",
+        "swiper": "^8.4.5"
     },
     "scripts": {
         "start": "webpack serve --mode development",

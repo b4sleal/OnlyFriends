@@ -1,0 +1,68 @@
+.swipe-container {
+    height: 100%;
+    width: 840px;
+
+    .heart-emoji,
+    .deny-emoji {
+        transition: 0.3s ease all;
+    }
+
+    .deny-button,
+    .like-button {
+        padding: 15px 65px;
+        border-radius: 100px;
+        border: none
+    }
+
+    .like-button {
+        background: rgba(#a65aec, 0.3);
+        margin-right: 9px;
+        transition: 0.3s ease all;
+
+        &:hover {
+            transform-origin: center;
+            transform: scale(1.1)
+        }
+    }
+
+    .deny-button {
+        background: rgba(#f2757e, 0.3);
+        margin-left: -2px;
+        transition: 0.3s ease all;
+
+        &:hover {
+            transform-origin: center;
+            transform: scale(1.1)
+        }
+    }
+
+    .button-container-2 {
+        width: 330px;
+        top: 580px;
+        left: 50px;
+        position: absolute !important;
+        transform: scale(1.17);
+        z-index: 1000;
+
+    }
+
+    @keyframes swipeLeft {
+        to {
+            transform: translateX(-800px) rotate(-150deg);
+            opacity: 0
+        }
+    }
+
+    @keyframes swipeRight {
+        to {
+            transform: translateX(1000px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes returnCard {
+        to {
+            transform: translateX(0px) rotate(0deg);
+        }
+    }
+}

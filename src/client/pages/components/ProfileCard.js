@@ -5,11 +5,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './ProfileCard.scss';
 
-export const ProfileImage = ({ image, name, age, style }) => {
+export const ProfileImage = ({ image, name, age, degree, verified }) => {
+    const random = (min, max) => ~~(Math.random() * (max - min + 1)) + min;
+
     return (
         <div className="profile-card position-relative">
             <div>
-                <p className="small d-flex align-items-center"> <i className="fas fa-bolt" color="white" /> 50% Match!</p>
+                <p className="small d-flex align-items-center"> <i className="fas fa-bolt" color="white" /> {random(50, 90)}% Match!</p>
             </div>
             <img className="match-image" src={image} width={350} height={550} />
 
@@ -30,12 +32,12 @@ export const ProfileImage = ({ image, name, age, style }) => {
                 </div>
                 <div className="name-age">
                     {name} {age}
-                    <i className="fas fa-badge-check verified-badge" />
+                    {verified && <i className="fas fa-badge-check verified-badge" />}
                 </div>
 
                 <div style={{ color: 'white', marginBottom: '30px', fontFamily: 'Segoe UI' }}>
                     <i className="fa-duotone fa-lg fa-graduation-cap" style={{ color: "#a65aec", marginRight: "5px" }}></i>
-                    Bachelor of Arts (BA)
+                    {degree || "Bachelor of Arts (BA)"}
                 </div>
 
                 <div className="d-flex position-relative justify-content-between button-container-2">

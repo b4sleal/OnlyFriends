@@ -58,45 +58,9 @@
     .user-info-container {
         bottom: 0px;
         margin-left: 15px;
-        margin-bottom: 20px
-    }
-
-    .heart-emoji,
-    .deny-emoji {
-        transition: 0.3s ease all;
-    }
-
-    .deny-button,
-    .like-button {
-        padding: 15px 65px;
-        border-radius: 100px;
-        border: none
-    }
-
-    .like-button {
-        background: rgba(#a65aec, 0.3);
-        margin-right: 9px;
-        transition: 0.3s ease all;
-
-        &:hover {
-            transform-origin: center;
-            transform: scale(1.1)
-        }
-    }
-
-    .deny-button {
-        background: rgba(#f2757e, 0.3);
-        margin-left: -2px;
-        transition: 0.3s ease all;
-
-        &:hover {
-            transform-origin: center;
-            transform: scale(1.1)
-        }
-    }
-
-    .button-container-2 {
-        width: 330px;
+        width: 200px;
+        margin-bottom: 40px;
+        width: 300px
     }
 
     .user-nearby-container {
@@ -147,13 +111,20 @@
         width: 40px;
         height: 40px;
         opacity: 0;
-        animation: emoji 700ms ease-out forwards,
+        font-size: 80px;
+        // animation: emoji 700ms ease-out forwards,
     }
 
     @keyframes emoji {
-        from {
-            transform: translate3d(0, 0, 0);
+        50% {
             opacity: 1;
+            transform: translateY(-20px);
+            transform-origin: center center;
+        }
+
+        100% {
+            transform: scale(0.1);
+            transform-origin: center center;
         }
     }
 }
