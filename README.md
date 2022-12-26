@@ -10,10 +10,6 @@ A site for dating or to make friends on campus
 - [Demo](#demos)
 - [Project details](#project-details)
 - [The Team](#the-team)
-- [Useful utilities](#useful-utilities)
-- [How Serverless uses markdown](#how-serverless-uses-markdown)
-  - [DEMO](#demo)
-- [Other Markdown Resources](#other-markdown-resources)
 </details>
 
 ## Why OnlyFriends
