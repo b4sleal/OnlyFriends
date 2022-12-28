@@ -14,7 +14,7 @@ A site for dating or to make friends on campus
 
 ## Why OnlyFriends
 
-OnlyFriends is a website for students in university who are looking to saefly make friends or date on campus.
+OnlyFriends is a website for students in university who are looking to safely  make friends or date on campus.
 
 - **Exclusive** - Only students can join the website, and can be limited to people in your own school
 - **Customizable** - Match with more options tailored to students, such as the program you're taking
